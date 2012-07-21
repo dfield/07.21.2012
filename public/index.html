@@ -8,9 +8,7 @@
 
 </head>
 <body>
-  <p id="nojs">Please enable javascript.</p>
-
-  <h1><a href="/">Welcome, Your Highness.</a></h1>
+  <h1><a href="/">Welcome to Wikipedia racing</a></h1>
   <p>I live to serve.</p>
 
   <form action="/" method="post" id="royalForm">
@@ -22,12 +20,10 @@
   </form>
 
   <pre id="readme"></pre>
-
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
-  <script src="/js/jquery.js" defer></script>
-  <script src="/js/royalty.js" defer></script>
-
-  <!-- for dev -->
-  <script src="http://localhost:8001/vogue-client.js"></script>
+  <script src="/js/lib/socket.io.js"></script>
+  <script src="/js/lib/jquery.js" defer></script>
+  <script src="/js/lib/royalty.js" defer></script>
+  <script src="/js/wiki.js" defer></script>
 </body>
 </html>
