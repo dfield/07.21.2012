@@ -6,6 +6,6 @@ socket.on('nodeData', function (data) {
 
 socket.on('players')
 
-function addPlayer(userId) {
-  socket.emit('addPlayer', {'user_id': userId})
+function login(loginData) {
+  socket.emit('login', loginData)
 }

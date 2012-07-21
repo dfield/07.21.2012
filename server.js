@@ -15,11 +15,12 @@ app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
 io.sockets.on('connection', function (socket) {
-  socket.on('addPlayer', function(data) {
-    var userId = data.userId;
-    game.addPlayer(userId);
-    var players = game.getPlayers();
-    sockets.emit('players', players);
+  socket.on('login', function(opts) {
+    game.addClient(socket, opts);
+  });
+  
+  socket.on('logout', function(data) {
+    
   });
   
   socket.on('getNode', function(data) {

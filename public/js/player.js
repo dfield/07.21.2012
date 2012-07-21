@@ -1,10 +1,6 @@
-function Player() {
-    
-}
+function Player() { }
 
-Player.prototype = {
-    
-};
+Player.prototype = { };
 
 if (typeof exports != 'undefined') {
   exports.Player = Player;
