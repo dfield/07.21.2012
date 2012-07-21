@@ -6,7 +6,7 @@
   },
   "version": "0.0.1",
   "engines": {
-    "node": "0.4.9"
+    "node": "0.6.6"
   },
   "author": "David Trejo <dtrejo@cs.brown.edu> (http://dtrejo.com/)",
   "description": "Royalty — Develop like a king.",
