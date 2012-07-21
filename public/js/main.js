@@ -1,36 +1,54 @@
 $(document).ready(function() {
-    var angle = 0;
+    var currentPage = "Potato";
+    var relatedPages = [
+        "Spud",
+        "Plant",
+        "Farm",
+    ];
+
     var gl = GL.create();
-    var mesh = GL.Mesh.cube();
+    var cubeMesh = GL.Mesh.cube();
+    var sphereMesh = GL.Mesh.sphere({
+        detail: 6,
+    });
+
     var shader = new GL.Shader('\
 void main() {\
 gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
 }\
 ', '\
+uniform vec3 color;\
 void main() {\
-gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\
+  gl_FragColor = vec4(color, 1);\
 }\
 ');
 
     gl.onupdate = function(seconds) {
-	angle += 45 * seconds;
+
     };
 
     gl.ondraw = function() {
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.loadIdentity();
-	gl.translate(0, 0, -5);
-	gl.rotate(30, 1, 0, 0);
-	gl.rotate(angle, 0, 1, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.loadIdentity();
+        gl.translate(0, -1.5, -5);
 
-	shader.draw(mesh);
+        // current page is at the origin
+        shader.uniforms({
+            color: [0.3, 0.6, 0.9],
+        });
+        shader.draw(sphereMesh);
+
+        // related pages are further out at z = 5
+        gl.pushMatrix();
+        
+        gl.popMatrix();
     };
 
     gl.fullscreen({
-	paddingLeft: 0,
-	paddingRight: 0,
-	paddingTop: 0,
-	paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
     });
     
     gl.animate();

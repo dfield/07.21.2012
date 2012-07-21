@@ -1,7 +1,7 @@
 function Character() {
-
+    
 }
 
 Character.prototype = {
-
+    
 };
