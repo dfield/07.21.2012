@@ -26,6 +26,12 @@ gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\
 	shader.draw(mesh);
     };
 
-    gl.fullscreen();
+    gl.fullscreen({
+	paddingLeft: 0,
+	paddingRight: 0,
+	paddingTop: 0,
+	paddingBottom: 0,
+    });
+    
     gl.animate();
 });
