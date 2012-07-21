@@ -1,6 +1,6 @@
 var express = require('express')
   , app = express.createServer()
-  , io = require('socket.io').listen(app)
+  , io = require('socket.io').listen(7000)
   , colors = require('colors')
   , markdown = require('markdown').markdown
   , fs = require('fs')
