@@ -2,27 +2,23 @@
 <html>
 <head>
   <meta http-equiv=Content-type content="text/html; charset=utf-8">
-  <title>Royalty — Code like a king!</title>
+  <title>Wikiracers</title>
   <link rel="stylesheet" href="/css/aristo.css" type="text/css">
   <link rel="stylesheet" href="/css/royalty.css" type="text/css">
-
 </head>
 <body>
-  <h1><a href="/">Welcome to Wikipedia racing</a></h1>
-  <p>I live to serve.</p>
 
-  <form action="/" method="post" id="royalForm">
-    <label for="input">Name Of Peon</label><br>
-    <input type="text" name="input" value="little johnny" id="input"
-      placeholder="little johnny">
-
-    <button id="button" class="button green">Bow Down!</button>
-  </form>
-
+  <p id="nojs">Please enable javascript.</p>
   <pre id="readme"></pre>
+
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
   <script src="/js/lib/socket.io.js"></script>
   <script src="/js/lib/jquery.js" defer></script>
   <script src="/js/wiki.js" defer></script>
+  <script src="/js/jquery.js" defer></script>
+  <script src="/js/royalty.js" defer></script>
+
+  <script src="http://evanw.github.com/lightgl.js/lightgl.js" defer></script>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
