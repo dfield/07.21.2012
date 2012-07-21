@@ -1,0 +1,8 @@
+function WikiPage() {
+
+}
+
+WikiPage.prototype = {
+
+};
+
