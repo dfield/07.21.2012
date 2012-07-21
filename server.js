@@ -4,7 +4,7 @@ var express = require('express')
   , colors = require('colors')
   , markdown = require('markdown').markdown
   , fs = require('fs')
-  , PORT = 8000
+  , PORT = process.env.PORT || 8000
   ;
 
 var node_one = {"title": "George bush", "connections": [2, 3]}
