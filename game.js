@@ -41,8 +41,35 @@ Monitor.prototype.diff = function() {
 function Game() {
   this.clients = {};
   this.players = {};
+  this.nextPlayerId = 0;
 }
 
-Game.prototype.update = function() {}
+Game.prototype.update = function() {
+  var diff = [];
+  for (var clientId in this.clients) {
+  }
+}
+
+Game.prototype.addClient = function(socket, opts) {
+  // Make a new player.
+  var playerId = this.nextPlayerId++;
+  var player = new Player();
+  player.name = opts["name"];
+  player.monitor = new Monitor(player)
+    .track("currentArticle")
+    .track('name')    
+  
+  // Add the client to the dictionary.
+  this.clients[socket.id] = socket;
+  this.players[playerId] = player;
+  
+  // Broadcast the data.
+  var dump = player.monitor.dump();
+  for (var id in this.clients) {
+    if (id != socket.id) {
+      this.clients[id].emit('addPlayer', playerId, dump);
+    }
+  }
+}
 
 exports.Game = Game;
