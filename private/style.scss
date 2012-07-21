@@ -1,3 +1,12 @@
 .test {
 	font-size: 30px;
 }
+
+#fb-login {
+  position: relative;
+  z-index: 2;
+}
+
+canvas {
+  z-index: 1;
+}
