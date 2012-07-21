@@ -1,9 +1,9 @@
 function Character() {
-
+    
 }
 
 Character.prototype = {
-
+    
 };
 
 if (typeof exports != 'undefined') {
