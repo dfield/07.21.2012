@@ -34,17 +34,3 @@ console.log('Your highness, at your service:'.yellow
   + ' http://localhost:%d'.magenta, PORT);
 
 app.listen(PORT);
-
-//
-// NowJS component
-//
-var nowjs = require('now');
-var everyone = nowjs.initialize(app);
-
-everyone.now.logOnServer = function(message) {
-  console.log(message.green);
-};
-
-function say(words) {
-  require('child_process').exec('/usr/bin/say ' + words);
-};
