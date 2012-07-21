@@ -1,0 +1,109 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+info using npm@1.1.0-beta-4
+info using node@v0.6.6
+verbose config file /Users/devin/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/package.json
+verbose loadDefaults royalty@0.0.1
+verbose where, deps [ '/Users/devin/Developer/wiki_racing/07.21.2012',
+verbose where, deps   [ 'now',
+verbose where, deps     'express',
+verbose where, deps     'colors',
+verbose where, deps     'markdown',
+verbose where, deps     'node-dev',
+verbose where, deps     'vogue-dtrejo' ] ]
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/package.json
+info preinstall royalty@0.0.1
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/colors/package.json
+verbose loadDefaults colors@0.5.0
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/express/package.json
+verbose loadDefaults express@3.0.0beta7
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/markdown/package.json
+verbose loadDefaults markdown@0.4.0
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/node-dev/package.json
+verbose loadDefaults node-dev@0.1.8
+verbose caching /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/now/package.json
+verbose loadDefaults now@0.8.1
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/package.json
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012 [ 'now@*',
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012   'express@*',
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012   'colors@0.5.0',
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012   'markdown@*',
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012   'node-dev@0.1.8',
+verbose into /Users/devin/Developer/wiki_racing/07.21.2012   'vogue-dtrejo@0.2.1' ]
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/colors/package.json
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/express/package.json
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/markdown/package.json
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/node-dev/package.json
+verbose from cache /Users/devin/Developer/wiki_racing/07.21.2012/node_modules/now/package.json
+verbose already installed in /Users/devin/Developer/wiki_racing/07.21.2012 skipping node-dev@0.1.8
+verbose cache add vogue-dtrejo@0.2.1
+verbose cache add [ 'vogue-dtrejo@0.2.1', null ]
+silly cache add: name, spec, args [ undefined,
+silly cache add: name, spec, args   'vogue-dtrejo@0.2.1',
+silly cache add: name, spec, args   [ 'vogue-dtrejo@0.2.1', null ] ]
+verbose parsed url { pathname: 'vogue-dtrejo@0.2.1',
+verbose parsed url   path: 'vogue-dtrejo@0.2.1',
+verbose parsed url   href: 'vogue-dtrejo@0.2.1' }
+silly cache add: name, spec, args [ 'vogue-dtrejo', '0.2.1', [ 'vogue-dtrejo', '0.2.1' ] ]
+verbose parsed url { pathname: '0.2.1', path: '0.2.1', href: '0.2.1' }
+verbose addNamed [ 'vogue-dtrejo', '0.2.1' ]
+verbose addNamed [ '0.2.1', '0.2.1' ]
+verbose already installed in /Users/devin/Developer/wiki_racing/07.21.2012 skipping now@*
+verbose already installed in /Users/devin/Developer/wiki_racing/07.21.2012 skipping express@*
+verbose already installed in /Users/devin/Developer/wiki_racing/07.21.2012 skipping colors@0.5.0
+verbose already installed in /Users/devin/Developer/wiki_racing/07.21.2012 skipping markdown@*
+verbose raw, before any munging vogue-dtrejo/0.2.1
+verbose url resolving [ 'https://registry.npmjs.org/', './vogue-dtrejo/0.2.1' ]
+verbose url resolved https://registry.npmjs.org/vogue-dtrejo/0.2.1
+verbose etag "AN7CHGVSC1WP9F2VQB7IHIYFE"
+http GET https://registry.npmjs.org/vogue-dtrejo/0.2.1
+http 304 https://registry.npmjs.org/vogue-dtrejo/0.2.1
+silly get cb [ 304,
+silly get cb   { server: 'CouchDB/1.2.0 (Erlang OTP/R15B)',
+silly get cb     etag: '"AN7CHGVSC1WP9F2VQB7IHIYFE"',
+silly get cb     date: 'Sat, 21 Jul 2012 20:51:08 GMT',
+silly get cb     'content-length': '0' } ]
+verbose etag vogue-dtrejo/0.2.1 from cache
+verbose bin dist [ '0.6-ares1.7.5-DEV-evundefined-openssl0.9.8r-v83.6.6.14-darwin-x64-11.4.0',
+verbose bin dist   { shasum: 'd00d7b91db453127597c2b8ad0c404fbe0863803',
+verbose bin dist     tarball: 'http://registry.npmjs.org/vogue-dtrejo/-/vogue-dtrejo-0.2.1.tgz' } ]
+verbose caching /Users/devin/.npm/vogue-dtrejo/0.2.1/package/package.json
+verbose loadDefaults vogue-dtrejo@0.2.1
+silly resolved [ { name: 'vogue-dtrejo',
+silly resolved     description: 'Auto-reload stylesheets in web browser whenever the CSS files are saved.',
+silly resolved     version: '0.2.1',
+silly resolved     homepage: 'https://github.com/dtrejo/vogue',
+silly resolved     repository: { type: 'git', url: 'git@github.com:DTrejo/vogue.git' },
+silly resolved     author: 
+silly resolved      { name: 'Andrew Davey',
+silly resolved        email: 'andrew@equin.co.uk',
+silly resolved        url: 'http://aboutcode.net/' },
+silly resolved     directories: { lib: '' },
+silly resolved     engines: { node: '0.4.x' },
+silly resolved     bin: { vogue: './vogue.js' },
+silly resolved     dependencies: { 'socket.io': '0.6.17', parseopt: '>=1.0.0' },
+silly resolved     devDependencies: {},
+silly resolved     _id: 'vogue-dtrejo@0.2.1',
+silly resolved     _engineSupported: false,
+silly resolved     _npmVersion: '1.1.0-beta-4',
+silly resolved     _nodeVersion: 'v0.6.6',
+silly resolved     _defaultsLoaded: true } ]
+info into /Users/devin/Developer/wiki_racing/07.21.2012 vogue-dtrejo@0.2.1
+info installOne vogue-dtrejo@0.2.1
+verbose installOne cb vogue-dtrejo@0.2.1
+ERR! Unsupported
+ERR! Not compatible with your version of node/npm: vogue-dtrejo@0.2.1
+ERR! Required: {"node":"0.4.x"}
+ERR! Actual:   {"npm":"1.1.0-beta-4","node":"0.6.6"}
+ERR! 
+ERR! System Darwin 11.4.0
+ERR! command "node" "/usr/local/bin/npm" "install"
+ERR! cwd /Users/devin/Developer/wiki_racing/07.21.2012
+ERR! node -v v0.6.6
+ERR! npm -v 1.1.0-beta-4
+ERR! code ENOTSUP
+ERR! message Unsupported
+verbose exit [ 1, true ]
