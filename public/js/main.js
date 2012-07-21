@@ -5,6 +5,11 @@ $(document).ready(function() {
         "Plant",
         "Farm",
     ];
+    var relatedPositions = [
+        [0, 0],
+        [10, 10],
+        [-10, 10],
+    ];
 
     var gl = GL.create();
     var cubeMesh = GL.Mesh.cube();
@@ -38,10 +43,17 @@ void main() {\
         });
         shader.draw(sphereMesh);
 
-        // related pages are further out at z = 5
-        gl.pushMatrix();
-        
-        gl.popMatrix();
+        // related pages are further out
+        for (var i = 0; i < 3; i++) {
+            gl.pushMatrix();
+            var pos = relatedPositions[i];
+            gl.translate(pos[0], pos[1], -50);
+            shader.uniforms({
+                color: [0.5, 0.5, 0.5],
+            });
+            shader.draw(sphereMesh);
+            gl.popMatrix();
+        }
     };
 
     gl.fullscreen({
@@ -50,6 +62,8 @@ void main() {\
         paddingTop: 0,
         paddingBottom: 0,
     });
-    
+
+    gl.enable(gl.DEPTH_TEST);
+
     gl.animate();
 });
