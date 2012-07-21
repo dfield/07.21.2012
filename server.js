@@ -7,14 +7,22 @@ var express = require('express')
   , PORT = process.env.PORT || 8000
   ;
   
-var game = require('./game').game;
+var Game = require('./game').Game;
+var game = new Game();
 
 // match app routes before serving static file of that name
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
 io.sockets.on('connection', function (socket) {
-  socket.on('getNode', function (data) {
+  socket.on('addPlayer', function(data) {
+    var userId = data.userId;
+    game.addPlayer(userId);
+    var players = game.getPlayers();
+    sockets.emit('players', players);
+  });
+  
+  socket.on('getNode', function(data) {
     socket.emit("nodeData", {"title": "Tala Huhe - Emperor of China"})
   });
 });
