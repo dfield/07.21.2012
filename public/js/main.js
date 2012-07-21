@@ -27,10 +27,10 @@ gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\
     };
 
     gl.fullscreen({
-	paddingLeft: 0,
-	paddingRight: 0,
-	paddingTop: 0,
-	paddingBottom: 0,
+	paddingLeft: 40,
+	paddingRight: 40,
+	paddingTop: 40,
+	paddingBottom: 40,
     });
     
     gl.animate();

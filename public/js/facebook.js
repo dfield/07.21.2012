@@ -5,7 +5,6 @@ function login(callback) {
   FB.login(function(response) {
     if (response.authResponse) {
       uid = response.authResponse.userID;
-      $.cookie("uid", uid);
       FB.api("/me", function(data) {
         name = data.first_name;
         callback();
@@ -50,7 +49,6 @@ window.fbAsyncInit = function() {
 $(document).ready(function() {
   $("#fb-login").click(function() {
     login(function() {
-      alert("hello!")
     });
   });
 });
