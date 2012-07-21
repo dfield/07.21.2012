@@ -6,30 +6,16 @@ var express = require('express')
   , fs = require('fs')
   , PORT = process.env.PORT || 8000
   ;
-
-var node_one = {"title": "George bush", "connections": [2, 3]}
-var graph = [];
+  
+var game = require('./game').game;
 
 // match app routes before serving static file of that name
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
-//
-// These routes only work if a static file has not already been served.
-//
-app.post('/', function(req, res, next) {
-  if (req.query.input) {
-    say('Your highness, ' + req.query.input + ' here and forever at your'
-       + ' service.');
-    res.end();
-  }
-});
-
 io.sockets.on('connection', function (socket) {
-  console.log("here");
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  socket.on('getNode', function (data) {
+    socket.emit("nodeData", {"title": "Tala Huhe - Emperor of China"})
   });
 });
 
