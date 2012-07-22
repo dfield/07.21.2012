@@ -1,16 +1,14 @@
 var uid = 0;
 var name = "Anonymous";
 
-function login(callback) {
+function facebookLogin(callback) {
   FB.login(function(response) {
     if (response.authResponse) {
       uid = response.authResponse.userID;
       FB.api("/me", function(data) {
-        name = data.first_name;
-        callback();
+        loginData = {"name": data.first_name, "facebookId": data.id};
+        callback(loginData);
       });
-    } else {
-      //user cancelled login or did not grant authorization
     }
   }, {scope:'email'});
 }
@@ -18,7 +16,8 @@ function login(callback) {
 window.fbAsyncInit = function() {
 	var appId;
 	if(window.location.toString().indexOf('herokuapp') != -1) {
-		appId = '';//TODO make a new app for heroku.
+	  //TODO make a new app for heroku.
+		appId = '';
 	} else {
 		appId = '346135092130975';
 	}
@@ -30,7 +29,7 @@ window.fbAsyncInit = function() {
 
   function updateButton(response) {
     if (response.authResponse) {
-      console.log("Auth response.");
+      //$("#fb-login").hide();
     }
   }
 
@@ -48,7 +47,6 @@ window.fbAsyncInit = function() {
 
 $(document).ready(function() {
   $("#fb-login").click(function() {
-    login(function() {
-    });
+    facebookLogin(login);
   });
 });

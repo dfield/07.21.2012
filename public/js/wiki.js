@@ -3,3 +3,9 @@ socket.emit('getNode', { 'node_id': 'data' });
 socket.on('nodeData', function (data) {
   socket.emit('my other event', { my: 'data' });
 });
+
+socket.on('players')
+
+function login(loginData) {
+  socket.emit('login', loginData)
+}
