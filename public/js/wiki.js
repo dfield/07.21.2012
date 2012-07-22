@@ -26,6 +26,7 @@ function displayPlayers() {
     $("#players").append(playerDiv);
     playerDiv.find(".article").ellipsis();
   }
+  $("#players").fadeIn();
 }
 
 function setArticle(article) {
@@ -33,9 +34,11 @@ function setArticle(article) {
 }
 
 function login(loginData) {
-  socket.emit('login', loginData)
+  socket.emit('login', loginData);
+  $("#fb-login").addClass("logout");
 }
 
 function logout() {
-  socket.emit('logout')
+  socket.emit('logout');
+  $("#players").fadeOut();
 }
