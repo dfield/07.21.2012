@@ -55,6 +55,15 @@ body {
   color: white;
 }
 
+#article_target {
+	position: absolute;
+	color: white;
+	left: 50%;
+	top: 20px;
+	z-index: 2;
+	background-color: black;
+}
+
 #players {
 	display: none;
 	position: absolute;

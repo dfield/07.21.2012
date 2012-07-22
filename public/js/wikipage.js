@@ -16,7 +16,6 @@ function WikiPage(article, position, currentPage) {
         .addClass("page-title")
         .css("position", "absolute")
         .text(this.article.name);
-    $("body").append(text);
     this.textElement = text;
 
     var planeMesh = GL.Mesh.plane({

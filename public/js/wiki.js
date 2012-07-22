@@ -25,13 +25,17 @@ socket.on('diff', function(diff) {
   displayPlayers();
 });
 
+socket.on('articleTarget', function(articleTarget) {
+  changeArticleTarget(articleTarget);
+})
+
 socket.on('articles', function(articlesData) {
   var lowerBoundX = -22;
   var upperBoundX = 12;
   var lowerBoundY = 5;
   var upperBoundY = 15; 
   
-  relatedPages = [];
+  nextRelatedPages = [];
   for (articleId in articlesData) {
     var article = new Article(articlesData[articleId].name, articleId);
     
@@ -39,7 +43,12 @@ socket.on('articles', function(articlesData) {
     var y = lowerBoundY + (Math.random() * (upperBoundY - lowerBoundY));
   
     var wikiPage = new WikiPage(article, [x, y], false);
-    relatedPages.push(wikiPage);
+    nextRelatedPages.push(wikiPage);
+  }
+
+  // on the first receieve, the related pages array is empty
+  if (relatedPages.length == 0) {
+    useNewPages();
   }
 });
 
@@ -55,6 +64,10 @@ function displayPlayers() {
   }
   $("#players").fadeIn();
   $(".article").ellipsis();
+}
+
+function changeArticleTarget(articleTarget) {
+  $("#article_target").text("Target: " + articleTarget);
 }
 
 function setArticle(article) {
