@@ -46,7 +46,7 @@ $(document).ready(function() {
         mousePosition = { x: e.x, y: e.y };
     }
 
-    var cameraOffset = new GL.Vector(0, 1.5, 5);
+    var cameraOffset = new GL.Vector(0, 1.5, 2.5);
     var moveAnimationRemaining = 0;
     var moveDestination = null;
 
