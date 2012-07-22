@@ -11,6 +11,11 @@
 	box-shadow: 0px 0px 20px #C58DE4;
 }
 
+@mixin dark-glowy-text {
+	color: #94C7CC;
+	text-shadow: 0px 0px 6px #09F;
+}
+
 body {
   font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
   font-size: 125%;
@@ -109,8 +114,8 @@ body {
 		width: 200px;
 		height: 14px;
 		margin-bottom: 2px;
-		color: #94C7CC;
 		font-size: 18px;
+		@include dark-glowy-text;
 	}
 
 	#current-article {
@@ -132,13 +137,27 @@ body {
 	}
 }
 
+#players-header {
+	display: none;
+	position: absolute;
+	width: 200px;
+	height: 28px;
+	margin-top: 2px;
+	right: 0px;
+	z-index: 2;
+	border-bottom: 1px solid #3E2A69;
+	text-align: center;
+	@include telex-font;
+	@include dark-glowy-text;
+}
 #players {
 	display: none;
 	position: absolute;
 	width: 200px;
-	height: 500px;
-	right: 20px;
-	top: 20px;
+	height: 100%;
+	right: 0px;
+	top: -10px;
+	padding-top: 39px;
 	@include glowy;
 	z-index: 2;
 	overflow-y: scroll;

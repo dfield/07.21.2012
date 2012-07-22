@@ -97,8 +97,9 @@ body {
     width: 200px;
     height: 14px;
     margin-bottom: 2px;
+    font-size: 18px;
     color: #94C7CC;
-    font-size: 18px; }
+    text-shadow: 0px 0px 6px #09F; }
   #target-wrapper #current-article {
     width: 500px;
     height: 28px;
@@ -114,13 +115,30 @@ body {
     z-index: 3;
     margin-left: 10px; }
 
+#players-header {
+  display: none;
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  margin-top: 2px;
+  right: 0px;
+  z-index: 2;
+  border-bottom: 1px solid #3E2A69;
+  text-align: center;
+  font-family: 'Telex', sans-serif;
+  font-variant: small-caps;
+  font-weight: bold;
+  color: #94C7CC;
+  text-shadow: 0px 0px 6px #09F; }
+
 #players {
   display: none;
   position: absolute;
   width: 200px;
-  height: 500px;
-  right: 20px;
-  top: 20px;
+  height: 100%;
+  right: 0px;
+  top: -10px;
+  padding-top: 39px;
   background-color: rgba(14, 3, 29, 0.5);
   border: 1px solid #794C7A;
   border-radius: 10px;
