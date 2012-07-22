@@ -30,18 +30,19 @@ function initGlobals() {
 		uniform float alpha;\
 		uniform vec3 color;\
 		void main() {\
-			vec3 light = vec3(3,10,10);\
+			vec3 light = vec3(-4,6,8);\
 			vec3 rimlight = vec3(8, -10, -10);\
 			rimlight = normalize(rimlight);\
 			light = normalize(light);\
 			float dProd = max(0.0, dot(normal, light));\
 			float dProd2 = max(0.0, dot(normal, rimlight));\
 			vec4 shadow = vec4(dProd, dProd, dProd, 1);\
-			vec4 rimLight = vec4(dProd2, dProd2, dProd2, 1);\
+			vec4 rimLight = .5*vec4(dProd2, dProd2, dProd2, 1);\
 			vec4 color4 = vec4(color, 1);\
 			vec4 blue = vec4(.8, .9, 1, 1);\
-                        vec4 color = texture2D(texture, coord * .5)*(shadow+rimLight*blue)*color4;\
-                        gl_FragColor = vec4(color.xyz * alpha, alpha);\
+            vec4 color = texture2D(texture, coord * .5)*\
+            	(shadow+rimLight*blue)*color4 + vec4(.08, .08, .08, 1);\
+            gl_FragColor = vec4(color.xyz * alpha, alpha);\
 		}\
 	');
 
@@ -77,7 +78,7 @@ function initGlobals() {
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
         }\
         ', '\
-        uniform vec4 color;\
+        uniform vec3 color;\
         uniform float alpha;\
         varying vec2 coord;\
         void main() {\
@@ -94,8 +95,7 @@ function initGlobals() {
                 lengthAlpha = 1.0 - (coord.y - fadeEnd) / (1.0 - fadeEnd);\
             }\
             float cumulativeAlpha = alpha * sideAlpha * lengthAlpha;\
-            vec3 outColor = vec3(1, 1, 1);\
-            gl_FragColor = vec4(outColor * cumulativeAlpha, cumulativeAlpha);\
+            gl_FragColor = vec4(color * cumulativeAlpha, cumulativeAlpha);\
         }\
     ');
 

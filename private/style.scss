@@ -1,3 +1,7 @@
+@mixin bg-gradient($angle, $firstStop: 62%, $secondStop: 64%) {
+background: -webkit-linear-gradient($angle, rgba(14,3,29,0.5) 0%,rgba(66,41,65,0.5) $firstStop,rgba(121,76,122,0.55) $secondStop, rgba(14,3,29,0.5) 100%); /* Chrome10+,Safari5.1+ */
+}
+
 @mixin telex-font {
 	font-family: 'Telex', sans-serif;
 	font-variant: small-caps;
@@ -9,6 +13,11 @@
 	border: 1px solid #794C7A;
 	border-radius: 10px;
 	box-shadow: 0px 0px 20px #C58DE4;
+}
+
+@mixin dark-glowy-text {
+	color: #94C7CC;
+	text-shadow: 0px 0px 6px #09F;
 }
 
 body {
@@ -27,6 +36,7 @@ body {
 	top: 140px;
 	@include glowy;
 	@include telex-font;
+	@include bg-gradient(-45deg);
 
 	color: #E8FAFF;
 	text-shadow: 0px 0px 16px #09F;
@@ -44,6 +54,7 @@ body {
 	line-height: 13px;
 	text-align: center;
 	opacity: .4;
+	-webkit-transition: opacity .8s;
 	@include telex-font;
 	&.highlight {
 		opacity: 1;
@@ -101,6 +112,7 @@ body {
 	left: -10px;
 	padding: 2px 3px 2px 17px;
 	@include glowy;
+	@include bg-gradient(115deg, 30%, 34%);
 
 	@include telex-font;
 
@@ -108,8 +120,8 @@ body {
 		width: 200px;
 		height: 14px;
 		margin-bottom: 2px;
-		color: #94C7CC;
 		font-size: 18px;
+		@include dark-glowy-text;
 	}
 
 	#current-article {
@@ -131,13 +143,27 @@ body {
 	}
 }
 
+#players-header {
+	display: none;
+	position: absolute;
+	width: 200px;
+	height: 28px;
+	margin-top: 2px;
+	right: 0px;
+	z-index: 2;
+	border-bottom: 1px solid #3E2A69;
+	text-align: center;
+	@include telex-font;
+	@include dark-glowy-text;
+}
 #players {
 	display: none;
 	position: absolute;
 	width: 200px;
-	height: 500px;
-	right: 20px;
-	top: 20px;
+	height: 100%;
+	right: 0px;
+	top: -10px;
+	padding-top: 39px;
 	@include glowy;
 	z-index: 2;
 	overflow-y: scroll;

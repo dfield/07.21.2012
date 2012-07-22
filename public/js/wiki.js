@@ -81,6 +81,7 @@ function displayPlayers() {
     $("#players").append(playerDiv);
   }
   $("#players").fadeIn();
+  $("#players-header").fadeIn();
   $(".article").ellipsis();
 }
 
@@ -109,5 +110,6 @@ function login(loginData) {
 function logout() {
   socket.emit('logout');
   $("#players").fadeOut();
+  $("#players-header").fadeOut();
   $("#target-wrapper").fadeOut();
 }

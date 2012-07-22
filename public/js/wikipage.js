@@ -74,8 +74,8 @@ function WikiPage(article, position, currentPage) {
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
             bridgeShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3],
-                alpha: 0.5 + 2 * this.sizeAnimator.get(),
+                color: [1, 1, 1],
+                alpha: 0.5 + this.sizeAnimator.get(Math.PI * 1.5) * 2,
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
             gl.enable(gl.DEPTH_TEST);
