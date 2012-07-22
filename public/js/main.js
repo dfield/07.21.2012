@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     var mousePosition = { x: 0, y: 0 };
     
-    gl.onmousemove = function(e) {
+    document.onmousemove = function(e) {
         mousePosition = { x: e.x, y: e.y };
     }
 
@@ -57,6 +57,16 @@ $(document).ready(function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.loadIdentity();
         gl.translate(0, -1.5, -5);
+        
+        var gaussian = function(value, sigma) {
+            return Math.exp(value * value / (-2 * sigma * sigma));
+        }
+        
+        var cameraTurnCoefficient = 0.01;
+        var dxToCenter = mousePosition.x - (gl.canvas.width / 2);
+        var dyToCenter = mousePosition.y - (gl.canvas.height / 2);
+        gl.rotate(dyToCenter * cameraTurnCoefficient, 1, 0, 0);
+        gl.rotate(dxToCenter * cameraTurnCoefficient, 0, 1, 0);
 
         // draw the background
         gl.pushMatrix();
