@@ -43,7 +43,8 @@ Monitor.prototype.diff = function() {
 function Game() {
   this.world = new World();
   this.clients = {};
-  this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
+  this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude"),
+    3: new Article("Sketchalicious definition make the girls go loco")};
   this.nextPlayerId = 0;
 }
 
@@ -113,6 +114,7 @@ Game.prototype.setArticle = function(socket, articleId) {
   var player = this.world.players[socket.playerId];
   player.article = this.articles[articleId];
   this.update();
+  socket.emit(this.getArticles());
 }
 
 Game.prototype.getArticles = function() {
