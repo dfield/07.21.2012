@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     var mousePosition = { x: 0, y: 0 };
     
-    gl.onmousemove = function(e) {
+    document.onmousemove = function(e) {
         mousePosition = { x: e.x, y: e.y };
     }
 
