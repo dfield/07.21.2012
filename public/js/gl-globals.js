@@ -28,6 +28,7 @@ function initGlobals() {
 		varying vec2 coord;\
 		uniform sampler2D texture;\
 		uniform float alpha;\
+		uniform vec3 color;\
 		void main() {\
 			vec3 light = vec3(3,10,10);\
 			vec3 rimlight = vec3(8, -10, -10);\
@@ -37,9 +38,9 @@ function initGlobals() {
 			float dProd2 = max(0.0, dot(normal, rimlight));\
 			vec4 shadow = vec4(dProd, dProd, dProd, 1);\
 			vec4 rimLight = vec4(dProd2, dProd2, dProd2, 1);\
-			vec4 purple = vec4(1, .9, 1, 1);\
+			vec4 color4 = vec4(color, 1);\
 			vec4 blue = vec4(.8, .9, 1, 1);\
-                        vec4 color = texture2D(texture, coord * .5)*(shadow+rimLight*blue)*purple;\
+                        vec4 color = texture2D(texture, coord * .5)*(shadow+rimLight*blue)*color4;\
                         gl_FragColor = vec4(color.xyz * alpha, alpha);\
 		}\
 	');

@@ -8,6 +8,10 @@ function WikiPage(article, position, currentPage) {
     var rand = Math.random();
     var zCoord = (!!currentPage) ? 0 : lowerBound + rand * (upperBound - lowerBound);
     var fontSize = lowerTextBound + rand * (upperTextBound - lowerTextBound);;
+    var r = .6 + Math.random() * .4;
+    var g = .6 + Math.random() * .4;
+    var b = .6 + Math.random() * .4;
+    this.color = [r, g, b];
 
     this.position = new GL.Vector(
         position[0],
@@ -97,9 +101,11 @@ function WikiPage(article, position, currentPage) {
         gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     
         planetTexture1.bind(0);
+
         shadyTextureShader.uniforms({
             alpha: this.alpha,
             texture: 0,
+            color: this.color
         });
         shadyTextureShader.draw(sphereMesh);
         planetTexture1.unbind(0);        
