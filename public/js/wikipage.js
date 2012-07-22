@@ -57,8 +57,10 @@ function WikiPage(article, position, currentPage) {
             this.textElement.css("bottom", screenPosition.y);
         }
         
+        gl.rotate(90, 0, 1, 0);
+
         planetTexture1.bind(0);
-        textureShader.uniforms({
+        shadyTextureShader.uniforms({
             texture: 0,
         });
         shadyTextureShader.draw(sphereMesh);
