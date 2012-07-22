@@ -38,6 +38,7 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('setArticle', function(articleId) {
     game.setArticle(socket, articleId);
+    socket.emit('articles', game.getArticles());
   });
 });
 
