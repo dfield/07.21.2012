@@ -48,8 +48,8 @@ function Game() {
   this.articleTargetIndex = 0;
   this.articleTargets = [
     new Article("United States", 5302153),
-    new Article("1947-1948_Civil_War_in_Palestine", 41866),
-    new Article("Avi_Shlaim", 516517)
+    new Article("1947-1948 Civil War in Palestine", 41866),
+    new Article("Avi Shlaim", 516517)
   ];
   this.nextPlayerId = 0;
 }
@@ -131,23 +131,25 @@ Game.prototype.setArticle = function(playerId, articleId, callback) {
   (function(self, callback) {
     var currentArticle = self.redis.get(articleId, function(err, reply) {
       var currentArticle = JSON.parse(reply);
-      player.article = new Article(currentArticle.page_title, articleId);
-      if (player.article.id == self.articleTarget.id) {
-        console.log("YOU WON!");
-        self.articleTargetIndex++;
-        self.articleTargetIndex %= self.articleTargets.length;
-        self.articleTarget = self.articleTargets[self.articleTargetIndex];
-        for (var clientId in self.clients) {
-          if (self.clients[clientId].playerId == playerId) {
-            self.clients[clientId].emit("win");
-          } else {
-            self.clients[clientId].emit("lose");
+      if (currentArticle) {
+        player.article = new Article(currentArticle.page_title, articleId);
+        if (player.article.id == self.articleTarget.id) {
+          console.log("YOU WON!");
+          self.articleTargetIndex++;
+          self.articleTargetIndex %= self.articleTargets.length;
+          self.articleTarget = self.articleTargets[self.articleTargetIndex];
+          for (var clientId in self.clients) {
+            if (self.clients[clientId].playerId == playerId) {
+              self.clients[clientId].emit("win");
+            } else {
+              self.clients[clientId].emit("lose");
+            }
+            self.clients[clientId].emit("articleTarget", self.articleTarget.name);
           }
-          self.clients[clientId].emit("articleTarget", self.articleTarget.name);
         }
+        self.update();
+        callback();
       }
-      self.update();
-      callback();
     });
   })(this, callback);
 }
