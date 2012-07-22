@@ -102,7 +102,7 @@ function login(loginData) {
   if (loggedIn) return;
   socket.emit('login', loginData)
   loggedIn = true;
-  $("#fb-login").addClass("logout");
+  $("#fb-login").addClass("logout").removeClass("login");
   $("#target-wrapper").fadeIn();
   $("#splash").fadeOut();
 }
@@ -112,4 +112,37 @@ function logout() {
   $("#players").fadeOut();
   $("#players-header").fadeOut();
   $("#target-wrapper").fadeOut();
+  $("#fb-login").addClass("login");//sostupid
 }
+
+function showWin() {
+  $("#blackout").fadeIn();
+  $("#end-game-congrats").css("top", -235).show();
+  $("#end-game-congrats").animate({
+    "top": 140
+  });
+  restart();
+}
+
+function showLose() {
+  $("#blackout").fadeIn();
+  $("#end-game-boo").css("top", -235).show();
+  $("#end-game-boo").animate({
+    "top": 140
+  })
+  restart();
+}
+
+function restart() {
+  // restart game
+  console.log("restarting");
+}
+
+$(".next-game").click(function() {
+    $(".end-game").animate({
+      "top": -235
+    }, function(e) {
+      $(".end-game").hide();
+    })
+    $("#blackout").fadeOut();
+});

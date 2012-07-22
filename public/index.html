@@ -28,6 +28,25 @@
     <div class="target-header">Target:</div>
     <div id="article-target">Welcome to Wikiracers</div>
   </div>
+
+  <div class="end-game" id="end-game-congrats">
+    Congratulations!<br/>You found the target first!
+    <div class="next-game">
+      Join the next race!
+    </div>
+  </div>
+
+  <div id="blackout"></div>
+
+  <div class="end-game" id="end-game-boo">
+    <span id="winner">Someone else</span>
+    <br/>
+    just found the target.
+    <div class="next-game">
+      Join the next race!
+    </div>
+  </div>
+
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
   <script src="/js/lib/socket.io.js"></script>
   <script src="/js/lib/jquery.js" defer></script>
