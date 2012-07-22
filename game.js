@@ -48,8 +48,8 @@ function Game() {
   this.articleTargetIndex = 0;
   this.articleTargets = [
     new Article("United States", 5302153),
-    new Article("Baegun_Station", 548001),
-    new Article("Anguk_Station", 378759)
+    new Article("1947-1948_Civil_War_in_Palestine", 41866),
+    new Article("Avi_Shlaim", 516517)
   ];
   this.nextPlayerId = 0;
 }
