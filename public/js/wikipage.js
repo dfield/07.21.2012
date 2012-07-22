@@ -48,7 +48,7 @@ function WikiPage(article, position, currentPage) {
 
         gl.translate(this.position.x, this.position.y, this.position.z);
 
-        var scaleFactor = 1 + this.sizeAnimationTime * 10;
+        var scaleFactor = 1 + this.sizeAnimationTime * 2;
         gl.scale(scaleFactor, scaleFactor, scaleFactor);
 
         if (!this.currentPage) {
