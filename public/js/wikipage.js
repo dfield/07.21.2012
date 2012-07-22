@@ -26,12 +26,15 @@ function WikiPage(article, position, currentPage) {
         .text(this.article.name);
     this.textElement = text;
 
-    var bridgeMesh = new GL.Mesh();
+    var bridgeMesh = new GL.Mesh({ coords: true });
     bridgeMesh.vertices = [
         [-0.5, -0.5, 0],
         [0.5, -0.5, 0],
         [this.position.x - 0.5, this.position.y - 0.5, this.position.z],
         [this.position.x + 0.5, this.position.y - 0.5, this.position.z]
+    ];
+    bridgeMesh.coords = [
+        [0, 0], [1, 0], [0, 1], [1, 1]
     ];
     bridgeMesh.triangles = [
         [0, 1, 2],
@@ -64,8 +67,9 @@ function WikiPage(article, position, currentPage) {
             gl.disable(gl.DEPTH_TEST);
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-            flatShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3]
+            bridgeShader.uniforms({
+                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3],
+                alpha: 0.5 + 2 * this.sizeAnimator.get(),
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
             gl.enable(gl.DEPTH_TEST);

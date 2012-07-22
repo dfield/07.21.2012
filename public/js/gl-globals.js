@@ -57,7 +57,7 @@ function initGlobals() {
 			gl_FragColor = texture2D(texture, coord);\
 		}\
 	');
-    
+   
     window.flatShader = new GL.Shader('\
         void main() {\
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
@@ -69,6 +69,34 @@ function initGlobals() {
         }\
     ');
 
+    window.bridgeShader = new GL.Shader('\
+        varying vec2 coord;\
+        void main() {\
+            coord = gl_TexCoord.xy;\
+            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
+        }\
+        ', '\
+        uniform vec4 color;\
+        uniform float alpha;\
+        varying vec2 coord;\
+        void main() {\
+            float a = abs(coord.x - 0.5) * 2.0;\
+            float sideAlpha = 1.0 - a;\
+            float fadeStart = 0.0;\
+            float fadeEnd = 0.0;\
+            float lengthAlpha = 1.0;\
+            if (coord.y < fadeStart) {\
+                lengthAlpha = coord.y / fadeStart;\
+            } else if (coord.y < fadeEnd) {\
+                lengthAlpha = 1.0;\
+            } else {\
+                lengthAlpha = 1.0 - (coord.y - fadeEnd) / (1.0 - fadeEnd);\
+            }\
+            float cumulativeAlpha = alpha * sideAlpha * lengthAlpha;\
+            vec3 outColor = vec3(1, 1, 1);\
+            gl_FragColor = vec4(outColor * cumulativeAlpha, cumulativeAlpha);\
+        }\
+    ');
 
     /* MESHES */
     window.planeMesh = GL.Mesh.plane({
