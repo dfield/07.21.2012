@@ -5,7 +5,6 @@ function World() {
 World.prototype.applyPlayerDiff = function(diff) {
   for (var playerId in diff) {
     var playerDiff = diff[playerId];
-    console.log(playerDiff);
     var player = this.players[playerId];
     _applyDiff(player, playerDiff);
   }
@@ -21,7 +20,6 @@ function _applyDiff(obj, diff) {
       if (!(/^\w+(\.\w+)*$/.test(path))) continue;
       diffCache[path] = new Function('obj', 'value', 'obj.' + path + ' = value');
     }
-    console.log(obj);
     diffCache[path](obj, diff[path]);
   }
 }

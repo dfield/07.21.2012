@@ -111,6 +111,8 @@ Game.prototype.removeClient = function(socket) {
 
 Game.prototype.setArticle = function(socket, articleId) {
   var player = this.world.players[socket.playerId];
+  console.log(articleId);
+  console.log(this.articles);
   player.article = this.articles[articleId];
   this.update();
 }

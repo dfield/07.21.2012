@@ -18,6 +18,9 @@ body {
 .image, .name {
   float: left; }
 
+.article {
+  color: white; }
+
 #players {
   position: absolute;
   width: 200px;
