@@ -51,11 +51,16 @@ body {
 	line-height: 22px;
 	cursor: pointer;
 	-webkit-transition: background-color 0.3s;
+	top: 50%;
+  left: 50%;
+	
 	&:hover {
 		background-color: rgba(76, 114, 172, 0.9);
 		text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.6);
 	}
 	&.logout {
+	  left: 0px;
+	  top: 0px;
 		padding: 0px 11px 0px 33px;
 	}
 }
@@ -67,10 +72,11 @@ body {
 #article_target {
 	position: absolute;
 	color: white;
-	left: 50%;
+	text-align: center;
+	font-size: 40px;
+	width: 100%;
 	top: 20px;
-	z-index: 2;
-	background-color: black;
+	z-index: 3;
 }
 
 #players {
