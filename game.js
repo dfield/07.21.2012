@@ -131,7 +131,7 @@ Game.prototype.setArticle = function(playerId, articleId) {
     var currentArticle = self.redis.get(articleId, function(err, reply) {
       var currentArticle = JSON.parse(reply);
       player.article = new Article(currentArticle.page_title, articleId);
-      if (player.article.id = self.articleTarget.id) {
+      if (player.article.id == self.articleTarget.id) {
         for (var clientId in self.clients) {
           self.clients[clientId].emit("articleTarget", "A new target yo.");
         }
