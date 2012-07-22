@@ -36,6 +36,8 @@ function WikiPage(article, position, currentPage) {
     this.size = 1;
     this.hitSize = this.size + 0.5;
 
+    this.alpha = 1;
+
     this.update = function(seconds) {
         seconds *= 1 / sizeAnimationDuration;
 
@@ -78,12 +80,18 @@ function WikiPage(article, position, currentPage) {
         
         gl.rotate(90, 0, 1, 0);
 
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    
         planetTexture1.bind(0);
         shadyTextureShader.uniforms({
+            alpha: this.alpha,
             texture: 0,
         });
         shadyTextureShader.draw(sphereMesh);
         planetTexture1.unbind(0);        
+
+        gl.disable(gl.BLEND);
 
         gl.popMatrix();
     }
