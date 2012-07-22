@@ -35,9 +35,14 @@ function WikiPage(article, position, currentPage) {
         minFilter: gl.LINEAR_MIPMAP_NEAREST
     });
     
+    var sizeAnimationDuration = 0.1;
+    var sizeAnimationMaxSize = 1.2;
+
     this.update = function(seconds) {
+        seconds *= 1 / sizeAnimationDuration;
+
         if (this.highlighted) {
-            this.sizeAnimationTime = Math.min(this.sizeAnimationTime + seconds, 0.1);
+            this.sizeAnimationTime = Math.min(this.sizeAnimationTime + seconds, 1);
         } else {
             this.sizeAnimationTime = Math.max(this.sizeAnimationTime - seconds, 0);
         }
@@ -48,7 +53,8 @@ function WikiPage(article, position, currentPage) {
 
         gl.translate(this.position.x, this.position.y, this.position.z);
 
-        var scaleFactor = 1 + this.sizeAnimationTime * 2;
+        var scaleFactor = 1 + this.sizeAnimationTime * (sizeAnimationMaxSize - 1);
+ 
         gl.scale(scaleFactor, scaleFactor, scaleFactor);
 
         if (!this.currentPage) {
