@@ -33,6 +33,7 @@ body {
   line-height: 13px;
   text-align: center;
   opacity: .4;
+  -webkit-transition: opacity .8s;
   font-family: 'Telex', sans-serif;
   font-variant: small-caps;
   font-weight: bold; }
