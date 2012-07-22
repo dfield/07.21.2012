@@ -23,6 +23,10 @@ io.sockets.on('connection', function (socket) {
     game.removeClient(socket);
   });
   
+  socket.on('disconnect', function() {
+    game.removeClient(socket);
+  });
+  
   socket.on('getNode', function(data) {
     socket.emit("nodeData", {"title": "Tala Huhe - Emperor of China"})
   });

@@ -95,8 +95,8 @@ Game.prototype.addClient = function(socket, opts) {
 }
 
 Game.prototype.removeClient = function(socket) {
-  delete players[socket.playerId];
-  delete clients[socket.id];
+  delete this.players[socket.playerId];
+  delete this.clients[socket.id];
   
   // Broadcast the data.
   var playerData = this.getPlayers();
