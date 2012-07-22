@@ -21,6 +21,7 @@ socket.on('diff', function(diff) {
 });
 
 socket.on('articles', function(articlesData) {
+  /*
   relatedPages = [];
   for (articleId in articlesData) {
     var article = new Article(articleId);
@@ -28,6 +29,7 @@ socket.on('articles', function(articlesData) {
     var wikiPage = new WikiPage(article, [10, 10], false);
     relatedPages.push(wikiPage);
   }
+  */
 });
 
 function displayPlayers() {
