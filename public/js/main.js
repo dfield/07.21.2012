@@ -1,6 +1,8 @@
 var gl = GL.create();
 
 $(document).ready(function() {
+
+    /* WEBGL stuff */
     initShaders();
 
     var currentPage = new WikiPage("Potato", [0, 0], true);
