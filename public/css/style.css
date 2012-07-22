@@ -175,7 +175,11 @@ body {
     font-size: 36px;
     width: 90%;
     z-index: 3;
-    margin-left: 10px; }
+    margin-left: 10px;
+    overflow: hidden;
+    height: 38px;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
 
 #players-header {
   display: none;
