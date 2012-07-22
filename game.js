@@ -1,4 +1,5 @@
 var Player = require('./public/js/player').Player;
+var Article = require('./public/js/article').Article;
 
 /**
   * Monitor class takes care of diffs in the world.
@@ -40,6 +41,7 @@ Monitor.prototype.diff = function() {
   */
 function Game() {
   this.clients = {};
+  this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
   this.players = {};
   this.nextPlayerId = 0;
 }
@@ -79,7 +81,7 @@ Game.prototype.addClient = function(socket, opts) {
   player.name = opts["name"];
   player.facebookId = opts["facebookId"];
   player.monitor = new Monitor(player)
-    .track("currentArticle")
+    .track("article")
     .track("facebookId") 
     .track("name")    
   
@@ -103,6 +105,12 @@ Game.prototype.removeClient = function(socket) {
   for (var id in this.clients) {
     this.clients[id].emit('players', playerData);
   }
+}
+
+Game.prototype.setArticle = function(socket, articleId) {
+  var player = this.players[socket.playerId];
+  player.article = this.articles[articleId];
+  self.update();
 }
 
 exports.Game = Game;

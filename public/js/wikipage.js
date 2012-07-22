@@ -2,7 +2,13 @@ function WikiPage(name, position, currentPage) {
     this.name = name;
     this.currentPage = currentPage;
     var zCoord = (!!currentPage) ? 0 : -40;
-    this.position = [position[0], position[1], zCoord];
+    this.position = new GL.Vector(
+        position[0],
+        position[1],
+        zCoord
+    );
+
+    this.highlighted = false;
   
     if (!this.currentPage) {
         var text = $("<span></span>")
@@ -31,14 +37,23 @@ function WikiPage(name, position, currentPage) {
     this.draw = function() {
         gl.pushMatrix();
 
-        gl.translate(this.position[0], this.position[1], this.position[2]);
+        gl.translate(this.position.x, this.position.y, this.position.z);
+        
+        if (this.highlighted) {
+            gl.pushMatrix();
+            gl.scale(2, 2, 2);
+        }
         planetTexture1.bind(0);
         textureShader.uniforms({
             texture: 0,
         });
         shadyTextureShader.draw(sphereMesh);
         planetTexture1.unbind(0);
-
+        if (this.highlighted) {
+            gl.popMatrix();
+            gl.scale(2, 2, 2);
+        }
+       
         if (!this.currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
             this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);

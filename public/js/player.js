@@ -1,4 +1,6 @@
-function Player() { }
+function Player() {
+  this.article = null;
+}
 
 Player.prototype = { };
 

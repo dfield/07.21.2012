@@ -19,12 +19,16 @@ io.sockets.on('connection', function (socket) {
     game.addClient(socket, opts);
   });
   
-  socket.on('logout', function(data) {
+  socket.on('logout', function() {
     game.removeClient(socket);
   });
   
   socket.on('disconnect', function() {
     game.removeClient(socket);
+  });
+  
+  socket.on('setArticle', function(articleId) {
+    game.setArticle(socket, articleId);
   });
   
   socket.on('getNode', function(data) {

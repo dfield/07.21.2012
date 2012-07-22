@@ -16,8 +16,11 @@ body {
 
 #fb-login {
   position: relative;
-  display: none;
   z-index: 2;
+}
+
+.image, .name {
+  float: left;
 }
 
 #players {

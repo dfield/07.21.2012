@@ -7,16 +7,32 @@ function facebookLogin() {
   }, {scope:'email'});
 }
 
+function facebookLogout() {
+  FB.logout(function(response) {
+    logout();
+  });
+}
+
+function showLoginButton() {
+  $("#fb-login").unbind("click");
+  $("#fb-login").text("Login with Facebook")
+  $("#fb-login").click(function() {
+    facebookLogin();
+  });
+}
+
 function handleResponse(response) {
   if (response.authResponse) {
-    $("#fb-login").hide();
+    $("#fb-login").unbind("click");
+    $("#fb-login").text("Logout")
+    $("#fb-login").click(facebookLogout);
     uid = response.authResponse.userID;
     FB.api("/me", function(data) {
-      loginData = {"name": data.first_name, "facebookId": data.id};
+      loginData = {"name": data.name, "facebookId": data.id};
       login(loginData);
     });
   } else {
-    $("#fb-login").show();
+    showLoginButton();
   }
 }
 
@@ -45,9 +61,3 @@ window.fbAsyncInit = function() {
     + '//connect.facebook.net/en_US/all.js';
   document.getElementById('fb-root').appendChild(e);
 }());
-
-$(document).ready(function() {
-  $("#fb-login").click(function() {
-    facebookLogin();
-  });
-});

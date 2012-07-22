@@ -14,15 +14,19 @@ socket.on('players', function(playerData) {
 
 function displayPlayers() {
   $("#players").html("");
-  console.log(players);
   for (var playerId in players) {
     var player = players[playerId];
     var playerDiv = makeElement(".player");
-    playerDiv.text(player.name);
+    playerDiv.find(".name").text(player.name);
+    playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture")
     $("#players").append(playerDiv);
   }
 }
 
 function login(loginData) {
   socket.emit('login', loginData)
+}
+
+function logout() {
+  socket.emit('logout')
 }
