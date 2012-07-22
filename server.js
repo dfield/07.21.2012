@@ -22,7 +22,13 @@ if (process.env.REDISTOGO_URL) {
 
   redis.auth(rtg.auth.split(":")[1]);
 } else {
-  //var redis = require("redis").createClient();
+  var redis = require("redis").createClient();
+}
+game.redis = redis;
+
+for (var id in graph) {
+  var articleData = JSON.stringify(graph[id]);
+  redis.set(id, articleData);
 }
 
 // match app routes before serving static file of that name
@@ -38,8 +44,11 @@ io.configure(function () {
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
     game.addClient(socket, opts);
-    socket.emit('articles', game.getArticles(socket));
+    game.getArticles(socket, function(data) {
+      socket.emit('articles', data);
+    });
     socket.emit('articleTarget', game.articleTarget.name);
+    socket.emit('currentArticle', game.world.players[socket.playerId].article.name)
   });
   
   socket.on('logout', function() {
@@ -52,7 +61,9 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('setArticle', function(articleId) {
     game.setArticle(socket.playerId, articleId);
-    socket.emit('articles', game.getArticles(socket));
+    game.getArticles(socket, function(data) {
+      socket.emit('articles', data);
+    });
   });
 
 });

@@ -135,23 +135,25 @@ Game.prototype.removeClient = function(socket) {
 
 Game.prototype.setArticle = function(playerId, articleId) {
   var player = this.world.players[playerId];
-  player.article = new Article(this.graph[articleId].page_title, articleId);
+  var currentArticle = JSON.parse(this.redis.get(articleId));
+  player.article = new Article(currentArticle.page_title, articleId);
   this.update();
 }
 
-Game.prototype.getArticles = function(socket) { 
+Game.prototype.getArticles = function(socket, callback) { 
   var player = this.world.players[socket.playerId];
   var currentArticleId = player.article.id;
   var articlesData = {};
-  var connectedArticles = this.graph[currentArticleId].page_links;
-  for (var i = 0; i < connectedArticles.length && i < 10; i++) {
-    var article = connectedArticles[i];
-    var articleData = {"id": article.id, "name": article.title};
-    articlesData[article.id] = articleData;
-  }
-  console.log(articlesData);
-  
-  return articlesData;
+  this.redis.get(currentArticleId, function (err, reply) {
+    var currentArticle = JSON.parse(reply);
+    var connectedArticles = currentArticle.page_links;
+    for (var i = 0; i < connectedArticles.length && i < 10; i++) {
+      var article = connectedArticles[i];
+      var articleData = {"id": article.id, "name": article.title};
+      articlesData[article.id] = articleData;
+    }
+    callback(articlesData);
+  });
 }
 
 exports.Game = Game;
