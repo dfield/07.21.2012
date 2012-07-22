@@ -7,10 +7,8 @@ var relatedPages = [
 var currentPage = new WikiPage("Potato", [0, 0], true);
 
 $(document).ready(function() {
-
     /* WEBGL stuff */
     initShaders();
-
 
     var planeMesh = GL.Mesh.plane({
         coords: true,
@@ -25,15 +23,22 @@ $(document).ready(function() {
         mousePosition = { x: e.x, y: e.y };
     }
 
+    var cameraOffset = new GL.Vector(0, 1.5, 5);
+    var moveAnimationRemaining = 0;
+    var moveDestination = null;
+
     document.onmousedown = function(e) {
       var tracer = new GL.Raytracer();
       var ray = tracer.getRayForPixel(e.x, e.y);
       
       for (var i = 0; i < relatedPages.length; i++) {
           var page = relatedPages[i];
-          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 3);
+          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
           if (result) {
-            setArticle(page.article);
+              setArticle(page.article);
+              moveAnimationRemaining = 1;
+              moveDestination = page.position;
+              page.highlighted = false;
           }
       }
     }
@@ -44,36 +49,54 @@ $(document).ready(function() {
         
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
-            var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 2);
-            if (result) {
-                page.highlighted = true;
-            } else {
+        
+            if (moveAnimationRemaining > 0) {
                 page.highlighted = false;
+            } else {
+                var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
+                if (result) {
+                    page.highlighted = true;
+                } else {
+                    page.highlighted = false;
+                }
             }
 
             page.update(seconds);
+        }
+        
+        moveAnimationRemaining -= seconds;
+        if (moveAnimationRemaining <= 0) {
+            moveAnimationRemaining = 0;
+            moveDestination = null;
         }
     };
 
     gl.ondraw = function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.loadIdentity();
-        gl.translate(0, -1.5, -5);
-        
-        var gaussian = function(value, sigma) {
-            return Math.exp(value * value / (-2 * sigma * sigma));
-        }
-        
+
+        // draw the scene
+        gl.translate(-cameraOffset.x, -cameraOffset.y, -cameraOffset.z);
+
         var cameraTurnCoefficient = 0.01;
         var dxToCenter = mousePosition.x - (gl.canvas.width / 2);
         var dyToCenter = mousePosition.y - (gl.canvas.height / 2);
         gl.rotate(dyToCenter * cameraTurnCoefficient, 1, 0, 0);
         gl.rotate(dxToCenter * cameraTurnCoefficient, 0, 1, 0);
+        
+        var cameraPosition;
+        if (moveAnimationRemaining > 0) {
+            cameraPosition = GL.Vector.lerp(moveDestination, currentPage.position, moveAnimationRemaining); 
+            gl.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+        }
 
         // draw the background
         gl.pushMatrix();
-        gl.scale(65, 45, 1);
         gl.translate(0, 0, -60);
+        if (cameraPosition) {
+            gl.translate(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        }
+        gl.scale(65, 45, 1);
 
         bgTexture.bind(0);
         textureShader.uniforms({
@@ -81,9 +104,8 @@ $(document).ready(function() {
         });
         textureShader.draw(planeMesh);
         bgTexture.unbind(0);
-
         gl.popMatrix();
-
+        
         // related pages are further out
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
