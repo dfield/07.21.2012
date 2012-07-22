@@ -26,11 +26,6 @@ if (process.env.REDISTOGO_URL) {
 }
 game.redis = redis;
 
-for (var id in graph) {
-  var articleData = JSON.stringify(graph[id]);
-  redis.set(id, articleData);
-}
-
 // match app routes before serving static file of that name
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
