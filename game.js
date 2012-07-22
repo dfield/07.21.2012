@@ -133,24 +133,25 @@ Game.prototype.removeClient = function(socket) {
   }
 }
 
-Game.prototype.setArticle = function(socket, articleId) {
-  var player = this.world.players[socket.playerId];
-  player.article = this.articles[articleId];
+Game.prototype.setArticle = function(playerId, articleId) {
+  var player = this.world.players[playerId];
+  player.article = new Article(this.graph[articleId].page_title, articleId);
   this.update();
-  socket.emit(this.getArticles());
 }
 
-Game.prototype.getArticles = function() {
-  var articlesData = {}; 
-  for (articleId in this.articles) {
-    var articleData = {"id": articleId, "name": this.articles[articleId].name};
-    articlesData[articleId] = articleData;
+Game.prototype.getArticles = function(socket) { 
+  var player = this.world.players[socket.playerId];
+  var currentArticleId = player.article.id;
+  var articlesData = {};
+  var connectedArticles = this.graph[currentArticleId].page_links;
+  for (var i = 0; i < connectedArticles.length && i < 10; i++) {
+    var article = connectedArticles[i];
+    var articleData = {"id": article.id, "name": article.title};
+    articlesData[article.id] = articleData;
   }
-  return articlesData;
-}
-
-Game.prototype.newArticleTarget = function() {
+  console.log(articlesData);
   
+  return articlesData;
 }
 
 exports.Game = Game;
