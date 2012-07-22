@@ -1,6 +1,7 @@
 body {
   font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
-  font-size: 125%; }
+  font-size: 125%;
+  margin: 0px; }
 
 .test {
   font-size: 30px; }
@@ -13,12 +14,35 @@ body {
 
 #fb-login {
   position: relative;
-  z-index: 2; }
+  z-index: 2;
+  color: white;
+  height: 22px;
+  font-size: 17px;
+  background-color: rgba(76, 114, 172, 0.5);
+  border-bottom: 1px solid #1D1075;
+  border-right: 1px solid #1D1075;
+  margin: 0px;
+  position: fixed;
+  padding: 0px 6px 0px 26px;
+  background-image: url("/images/facebook-icon.png");
+  background-size: 22px;
+  background-repeat: no-repeat;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s; }
+  #fb-login:hover {
+    background-color: rgba(76, 114, 172, 0.9);
+    text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.6); }
+  #fb-login.logout {
+    padding: 0px 11px 0px 33px; }
 
 .article {
   color: white; }
 
 #players {
+  display: none;
   position: absolute;
   width: 200px;
   height: 500px;
