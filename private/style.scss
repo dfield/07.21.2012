@@ -1,3 +1,9 @@
+@mixin telex-font {
+	font-family: 'Telex', sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+}
+
 body {
   font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
   font-size: 125%;
@@ -11,8 +17,9 @@ body {
 .page-title {
 	position: "absolute";
 	z-index: 2;
-	color: #44aadd;
-	font-family: "Helvetica"
+	color: #CAF4FF;
+	text-shadow: 0px 0px 6px #09F;
+	@include telex-font;
 }
 
 #fb-login {
@@ -75,6 +82,7 @@ body {
 		.user-info {
 			float: left;
 			.name {
+				@include telex-font;
 				width: 126px;
 				color: #FEF0FF;
 				font-size: 17px;

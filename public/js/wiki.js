@@ -41,9 +41,9 @@ function displayPlayers() {
     playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture");
     playerDiv.find(".article").text(player.article.name);
     $("#players").append(playerDiv);
-    playerDiv.find(".article").ellipsis();
   }
   $("#players").fadeIn();
+  $(".article").ellipsis();
 }
 
 function setArticle(article) {
