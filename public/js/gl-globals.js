@@ -27,7 +27,7 @@ function initGlobals() {
 		varying vec3 normal;\
 		varying vec2 coord;\
 		uniform sampler2D texture;\
-		uniform sampler2D alpha;\
+		uniform float alpha;\
 		void main() {\
 			vec3 light = vec3(3,10,10);\
 			vec3 rimlight = vec3(8, -10, -10);\
