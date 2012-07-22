@@ -1,11 +1,7 @@
 var uid = 0;
 var name = "Anonymous";
 
-console.log("Testing 123");
-
-
 function facebookLogin() {
-  console.log("Trying to log in");
   FB.login(function(response) {
     handleResponse(response);
   }, {scope:'email'});
@@ -18,7 +14,6 @@ function facebookLogout() {
 }
 
 function showLoginButton() {
-  console.log("Some logging");
   $("#fb-login").unbind("click");
   $("#fb-login").text("Login with Facebook")
   $("#fb-login").click(function() {
@@ -44,10 +39,7 @@ function handleResponse(response) {
 
 window.fbAsyncInit = function() {
 	var appId;
-	console.log("there");
 	if(window.location.toString().indexOf('coursekick') != -1) {
-	  console.log("here");
-	  //TODO make a new app for heroku.
 		appId = '475997832411925';
 	} else {
 		appId = '346135092130975';
