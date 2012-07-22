@@ -1,5 +1,5 @@
-function WikiPage(name, position, currentPage) {
-    this.name = name;
+function WikiPage(article, position, currentPage) {
+    this.article = article;
     this.currentPage = currentPage;
     var zCoord = (!!currentPage) ? 0 : -40;
     this.position = new GL.Vector(
@@ -12,12 +12,12 @@ function WikiPage(name, position, currentPage) {
   
     if (!this.currentPage) {
         var text = $("<span></span>");
-        text.attr("id", name);
+        text.attr("id", this.article.name);
         text.css("position", "absolute");
         text.css("z-index", 2);
         text.css("color", "#44AADD");
         text.css("font-family", "Helvetica");
-        text.text(name);
+        text.text(this.article.name);
         $("body").append(text);
         this.textElement = text;
     }
