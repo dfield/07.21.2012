@@ -31,6 +31,19 @@ function WikiPage(article, position, currentPage) {
         coords: true
     });
 
+    var bridgeMesh = new GL.Mesh();
+    bridgeMesh.vertices = [
+        [-0.5, -0.5, 0],
+        [0.5, -0.5, 0],
+        [this.position.x - 0.5, this.position.y - 0.5, this.position.z],
+        [this.position.x + 0.5, this.position.y - 0.5, this.position.z]
+    ];
+    bridgeMesh.triangles = [
+        [0, 1, 2],
+        [2, 1, 3]
+    ];
+    bridgeMesh.compile();
+
     var planetTexture1 = GL.Texture.fromURL("/images/planet-texture3.jpg", {
         minFilter: gl.LINEAR_MIPMAP_NEAREST
     });
@@ -49,6 +62,17 @@ function WikiPage(article, position, currentPage) {
     }
 
     this.draw = function() {
+        if (this.highlighted) {
+            gl.disable(gl.DEPTH_TEST);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+            flatShader.uniforms({
+                color: [1, 1, 1, this.sizeAnimationTime * 0.3]
+            }).draw(bridgeMesh);
+            gl.disable(gl.BLEND);
+            gl.enable(gl.DEPTH_TEST);
+        }
+
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
@@ -70,6 +94,7 @@ function WikiPage(article, position, currentPage) {
         });
         shadyTextureShader.draw(sphereMesh);
         planetTexture1.unbind(0);        
+
         gl.popMatrix();
     }
 }
