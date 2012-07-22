@@ -16,7 +16,7 @@ function WikiPage(article, position, currentPage) {
     );
 
     this.highlighted = false;
-    this.sizeAnimationTime = 0;
+    this.sizeAnimator = new Oscillator(10, 0.25);
   
     var text = $("<span></span>")
         .attr("id", this.article.name)
@@ -50,12 +50,12 @@ function WikiPage(article, position, currentPage) {
         seconds *= 1 / sizeAnimationDuration;
 
         if (this.highlighted) {
-            this.sizeAnimationTime = Math.min(this.sizeAnimationTime + seconds, 1);
+            this.sizeAnimator.advance(seconds);
         } else {
-            this.sizeAnimationTime = Math.max(this.sizeAnimationTime - seconds, 0);
+            this.sizeAnimator.advanceToZero(seconds);
         }
 
-        this.size = 1 + this.sizeAnimationTime * (sizeAnimationMaxSize - 1);
+        this.size = 1 + this.sizeAnimator.get();
         this.hitSize = this.size + 1 ;
     }
 
@@ -96,7 +96,7 @@ function WikiPage(article, position, currentPage) {
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
             flatShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimationTime * 0.3]
+                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3]
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
             this.textElement.addClass("highlight");
