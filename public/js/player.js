@@ -1,5 +1,5 @@
 function Player() {
-  this.currentArticleId = null;
+  this.article = null;
 }
 
 Player.prototype = { };
