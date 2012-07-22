@@ -2,6 +2,10 @@ var gl = GL.create();
 var relatedPages = [];
 var currentPage = new WikiPage("Potato", [0, 0], true);
 
+$(window).unload(function() {
+    alert("HI");
+});
+
 $(document).ready(function() {
     /* WEBGL stuff */
     initShaders();
@@ -35,6 +39,8 @@ $(document).ready(function() {
               moveAnimationRemaining = 1;
               moveDestination = page.position;
               page.highlighted = false;
+
+              $(".page-title").fadeOut(500);
           }
       }
     }
@@ -62,6 +68,7 @@ $(document).ready(function() {
         
         moveAnimationRemaining -= seconds;
         if (moveAnimationRemaining <= 0) {
+            $(".page-title").fadeIn(500);
             moveAnimationRemaining = 0;
             moveDestination = null;
         }
