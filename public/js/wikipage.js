@@ -16,7 +16,7 @@ function WikiPage(article, position, currentPage) {
     );
 
     this.highlighted = false;
-    this.sizeAnimator = new Oscillator(10, 0.25);
+    this.sizeAnimator = new Oscillator(10, 0.07);
   
     var text = $("<span></span>")
         .attr("id", this.article.name)
@@ -60,6 +60,21 @@ function WikiPage(article, position, currentPage) {
     }
 
     this.draw = function() {
+        if (this.highlighted) {
+            gl.disable(gl.DEPTH_TEST);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+            flatShader.uniforms({
+                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3]
+            }).draw(bridgeMesh);
+            gl.disable(gl.BLEND);
+            gl.enable(gl.DEPTH_TEST);
+            this.textElement.addClass("highlight");
+        }
+        else {
+            this.textElement.removeClass("highlight");
+        }
+
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
@@ -75,6 +90,7 @@ function WikiPage(article, position, currentPage) {
             this.textElement.css("bottom", screenPosition.y - 200);
         }
         
+        gl.rotate(30, 0, 0, 1);
         gl.rotate(90, 0, 1, 0);
 
         gl.enable(gl.BLEND);
@@ -91,19 +107,6 @@ function WikiPage(article, position, currentPage) {
         gl.disable(gl.BLEND);
 
         gl.popMatrix();
-
-        if (this.highlighted) {
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-            flatShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3]
-            }).draw(bridgeMesh);
-            gl.disable(gl.BLEND);
-            this.textElement.addClass("highlight");
-        }
-        else {
-            this.textElement.removeClass("highlight");
-        }
     }
 }
 
