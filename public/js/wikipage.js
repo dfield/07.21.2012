@@ -1,28 +1,21 @@
-function WikiPage(name, position) {
+function WikiPage(name, position, currentPage) {
     this.name = name;
+    this.currentPage = currentPage;
+    var zCoord = (!!currentPage) ? 0 : -40;
+    this.position = [position[0], position[1], zCoord];
+  
+    if (!this.currentPage) {
+        var text = $("<span></span>");
+        text.attr("id", name);
+        text.css("position", "absolute");
+        text.css("z-index", 2);
+        text.css("color", "#44AADD");
+        text.css("font-family", "Helvetica");
+        text.text(name);
+        $("body").append(text);
+        this.textElement = text;
+    }
 
-    var canvas = document.createElement("canvas");
-    canvas.width = 512;
-    canvas.height = 512;
-    var context = canvas.getContext("2d");
-    context.fillStyle = "white";
-    context.lineWidth = 2.5;
-    context.strokeStyle = "black";
-    context.save();
-    context.font = "bold 150px Helvetica";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    var leftOffset = context.canvas.width / 2;
-    var topOffset = context.canvas.height / 2;
-    context.strokeText(name, leftOffset, topOffset);
-    context.fillText(name, leftOffset, topOffset);
-    context.restore();
-    this.nameTexture = GL.Texture.fromImage(canvas, {
-        minFilter: gl.LINEAR_MIPMAP_NEAREST,
-    });
-
-    this.position = [position[0], position[1], -40];
-    
     var planeMesh = GL.Mesh.plane({
         coords: true,
     });
@@ -38,14 +31,11 @@ function WikiPage(name, position) {
         gl.translate(this.position[0], this.position[1], this.position[2]);
         shader.draw(sphereMesh);
         
-        gl.translate(0, 1.5, 0);
-        gl.scale(2, 2, 2);
-        this.nameTexture.bind(0);
-        textureShader.uniforms({
-            texture: 0,
-        });
-        //textureShader.draw(planeMesh);
-        this.nameTexture.unbind(0);
+        if (!this.currentPage) {
+            var screenPosition = gl.project(0, 1.5, 0);
+            this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);
+            this.textElement.css("bottom", screenPosition.y);
+        }
         
         gl.popMatrix();
     }
