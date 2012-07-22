@@ -33,6 +33,7 @@ function useNewPages() {
     });
 
     $(".page-title").ellipsis();
+    $(".page-title").show();
 }
 
 $(document).ready(function() {
