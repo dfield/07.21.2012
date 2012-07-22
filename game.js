@@ -128,6 +128,7 @@ Game.prototype.removeClient = function(socket) {
 
 Game.prototype.setArticle = function(playerId, articleId, callback) {
   var player = this.world.players[playerId];
+  if (!player) return;
   (function(self, callback) {
     var currentArticle = self.redis.get(articleId, function(err, reply) {
       var currentArticle = JSON.parse(reply);
