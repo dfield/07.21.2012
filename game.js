@@ -85,7 +85,7 @@ Game.prototype.addClient = function(socket, opts) {
     .track("article.name")
     .track("article.id")
     .track("facebookId") 
-    .track("name")    
+    .track("name")
   
   // Add the client to the dictionary.
   this.clients[socket.id] = socket;
@@ -111,10 +111,17 @@ Game.prototype.removeClient = function(socket) {
 
 Game.prototype.setArticle = function(socket, articleId) {
   var player = this.world.players[socket.playerId];
-  console.log(articleId);
-  console.log(this.articles);
   player.article = this.articles[articleId];
   this.update();
+}
+
+Game.prototype.getArticles = function() {
+  var articlesData = {}; 
+  for (articleId in this.articles) {
+    var articleData = {"id": articleId, "name": this.articles.name};
+    articlesData[articleId] = articleData;
+  }
+  return articleData;
 }
 
 Game.prototype.newArticleTarget = function() {

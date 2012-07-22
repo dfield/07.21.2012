@@ -1,5 +1,5 @@
 var world = new World();
-var socket = io.connect('http://localhost:7000');
+var socket = io.connect(window.location.hostname);
 
 socket.emit('getNode', { 'node_id': 'data' });
 
@@ -13,6 +13,23 @@ socket.on('players', function(playerData) {
   }
   world.applyPlayerDiff(playerData);
   displayPlayers();
+});
+
+socket.on('diff', function(diff) {
+  world.applyPlayerDiff(diff);
+  displayPlayers();
+});
+
+socket.on('articles', function(articlesData) {
+  /*
+  relatedPages = [];
+  for (articleId in articlesData) {
+    var article = new Article(articleId);
+    article.name = articlesData[articleId].name;
+    var wikiPage = new WikiPage(article, [10, 10], false);
+    relatedPages.push(wikiPage);
+  }
+  */
 });
 
 function displayPlayers() {

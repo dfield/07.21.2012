@@ -1,16 +1,16 @@
 var gl = GL.create();
+var relatedPages = [
+    new WikiPage(new Article("Spud", 1), [0, 0], false),
+    new WikiPage(new Article("Plant", 2), [10, 10], false),
+    new WikiPage(new Article("Farm", 3), [-10, 10], false),
+];
+var currentPage = new WikiPage("Potato", [0, 0], true);
 
 $(document).ready(function() {
 
     /* WEBGL stuff */
     initShaders();
 
-    var currentPage = new WikiPage("Potato", [0, 0], true);
-    var relatedPages = [
-        new WikiPage(new Article("Spud", 1), [0, 0], false),
-        new WikiPage(new Article("Plant", 2), [10, 10], false),
-        new WikiPage(new Article("Farm", 3), [-10, 10], false),
-    ];
 
     var planeMesh = GL.Mesh.plane({
         coords: true,
@@ -25,13 +25,13 @@ $(document).ready(function() {
         mousePosition = { x: e.x, y: e.y };
     }
 
-    gl.onmouseup = function(e) {
+    document.onmousedown = function(e) {
       var tracer = new GL.Raytracer();
       var ray = tracer.getRayForPixel(e.x, e.y);
       
       for (var i = 0; i < relatedPages.length; i++) {
           var page = relatedPages[i];
-          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 1);
+          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 3);
           if (result) {
             setArticle(page.article);
           }
