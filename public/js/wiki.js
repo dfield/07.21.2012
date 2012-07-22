@@ -2,6 +2,10 @@ var world = new World();
 var socket = io.connect(window.location.hostname);
 var loggedIn = false;
 
+window.onclose = function() {
+  socket.emit('disconnecting');
+};
+
 socket.emit('getNode', { 'node_id': 'data' });
 
 socket.on('nodeData', function (data) {
@@ -46,6 +50,7 @@ function displayPlayers() {
     $("#players").append(playerDiv);
     playerDiv.find(".article").ellipsis();
   }
+  $("#players").fadeIn();
 }
 
 function setArticle(article) {
@@ -56,8 +61,10 @@ function login(loginData) {
   if (loggedIn) return;
   socket.emit('login', loginData)
   loggedIn = true;
+  $("#fb-login").addClass("logout");
 }
 
 function logout() {
-  socket.emit('logout')
+  socket.emit('logout');
+  $("#players").fadeOut();
 }

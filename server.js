@@ -1,5 +1,6 @@
 var express = require('express')
-  , http = require('http')
+  , app = express.createServer()
+  , io = require('socket.io').listen(app)
   , colors = require('colors')
   , markdown = require('markdown').markdown
   , fs = require('fs')
@@ -10,17 +11,13 @@ var Game = require('./game').Game;
 var game = new Game();
 
 // match app routes before serving static file of that name
-var app = express();
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
-
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
 
 // assuming io is the Socket.IO server object
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
+  io.set("polling duration", 1); 
 });
 
 io.sockets.on('connection', function (socket) {
@@ -34,8 +31,8 @@ io.sockets.on('connection', function (socket) {
     game.removeClient(socket);
   });
   
-  socket.on('disconnect', function() {
-    console.log("disconnection occured");
+  socket.on('disconnecting', function() {
+    console.log("DISCONNECTING");
     game.removeClient(socket);
   });
   
@@ -47,4 +44,4 @@ io.sockets.on('connection', function (socket) {
 console.log('Your highness, at your service:'.yellow
   + ' http://localhost:%d'.magenta, PORT);
 
-server.listen(PORT);
+app.listen(PORT);
