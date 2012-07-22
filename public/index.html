@@ -9,10 +9,9 @@
 <body>
   <div id="fb-root"></div>
   <button id="fb-login">Login with Facebook</button>
-  <div id="opponents">
-    <div class="opponent template"></div>
-  </div>
-
+  <div id="players"></div>
+  <div class="player template"></div>
+  
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
   <script src="/js/lib/socket.io.js"></script>
   <script src="/js/lib/jquery.js" defer></script>
@@ -20,6 +19,7 @@
   <script src="http://evanw.github.com/lightgl.js/lightgl.js" defer></script>
   <script src="/js/util.js" defer></script>
   <script src="/js/player.js" defer></script>
+  <script src="/js/shaders.js" defer></script>
   <script src="/js/wikipage.js" defer></script>
   <script src="/js/main.js" defer></script>
   <script src="/js/facebook.js" defer></script>
