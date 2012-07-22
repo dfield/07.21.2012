@@ -47,6 +47,7 @@ function Game() {
   this.articleTarget = new Article("Baegun_Station", 548001);
   this.articleTargetIndex = 0;
   this.articleTargets = [
+    new Article("United States", 5302153),
     new Article("Baegun_Station", 548001),
     new Article("Anguk_Station", 378759)
   ];
@@ -125,20 +126,24 @@ Game.prototype.removeClient = function(socket) {
   }
 }
 
-Game.prototype.setArticle = function(playerId, articleId) {
+Game.prototype.setArticle = function(playerId, articleId, callback) {
   var player = this.world.players[playerId];
-  (function(self) {
+  (function(self, callback) {
     var currentArticle = self.redis.get(articleId, function(err, reply) {
       var currentArticle = JSON.parse(reply);
       player.article = new Article(currentArticle.page_title, articleId);
       if (player.article.id == self.articleTarget.id) {
+        self.articleTargetIndex++;
+        self.articleTargetIndex %= self.articleTargets.length;
+        self.articleTarget = self.articleTargets[self.articleTargetIndex];
         for (var clientId in self.clients) {
-          self.clients[clientId].emit("articleTarget", "A new target yo.");
+          self.clients[clientId].emit("articleTarget", self.articleTarget.name);
         }
       }
       self.update();
+      callback();
     });
-  })(this);
+  })(this, callback);
 }
 
 Game.prototype.getArticles = function(socket, callback) { 
