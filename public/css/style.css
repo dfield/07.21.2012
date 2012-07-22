@@ -9,8 +9,11 @@ body {
 .page-title {
   position: "absolute";
   z-index: 2;
-  color: #44aadd;
-  font-family: "Helvetica"; }
+  color: #CAF4FF;
+  text-shadow: 0px 0px 6px #09F;
+  font-family: 'Telex', sans-serif;
+  font-variant: small-caps;
+  font-weight: bold; }
 
 #fb-login {
   position: relative;
@@ -66,6 +69,9 @@ body {
     #players .player .user-info {
       float: left; }
       #players .player .user-info .name {
+        font-family: 'Telex', sans-serif;
+        font-variant: small-caps;
+        font-weight: bold;
         width: 126px;
         color: #FEF0FF;
         font-size: 17px;

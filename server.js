@@ -17,11 +17,12 @@ app.use(express.static(__dirname + '/public'));
 // assuming io is the Socket.IO server object
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
+  io.set("polling duration", 1); 
 });
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
+    console.log("logging in");
     game.addClient(socket, opts);
     socket.emit('articles', game.getArticles())
   });
@@ -30,7 +31,8 @@ io.sockets.on('connection', function (socket) {
     game.removeClient(socket);
   });
   
-  socket.on('disconnect', function() {
+  socket.on('disconnecting', function() {
+    console.log("DISCONNECTING");
     game.removeClient(socket);
   });
   

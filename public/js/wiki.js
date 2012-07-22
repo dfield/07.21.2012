@@ -1,5 +1,10 @@
 var world = new World();
 var socket = io.connect(window.location.hostname);
+var loggedIn = false;
+
+window.onclose = function() {
+  socket.emit('disconnecting');
+};
 
 socket.emit('getNode', { 'node_id': 'data' });
 
@@ -21,15 +26,19 @@ socket.on('diff', function(diff) {
 });
 
 socket.on('articles', function(articlesData) {
-  /*
+  var lowerBound = -20;
+  var upperBound = 20;
+  
   relatedPages = [];
   for (articleId in articlesData) {
-    var article = new Article(articleId);
-    article.name = articlesData[articleId].name;
-    var wikiPage = new WikiPage(article, [10, 10], false);
+    var article = new Article(articlesData[articleId].name, articleId);
+    
+    var x = lowerBound + (Math.random() * (upperBound - lowerBound));
+    var y = lowerBound + (Math.random() * (upperBound - lowerBound));
+    
+    var wikiPage = new WikiPage(article, [x, y], false);
     relatedPages.push(wikiPage);
   }
-  */
 });
 
 function displayPlayers() {
@@ -41,9 +50,9 @@ function displayPlayers() {
     playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture");
     playerDiv.find(".article").text(player.article.name);
     $("#players").append(playerDiv);
-    playerDiv.find(".article").ellipsis();
   }
   $("#players").fadeIn();
+  $(".article").ellipsis();
 }
 
 function setArticle(article) {
@@ -51,7 +60,9 @@ function setArticle(article) {
 }
 
 function login(loginData) {
-  socket.emit('login', loginData);
+  if (loggedIn) return;
+  socket.emit('login', loginData)
+  loggedIn = true;
   $("#fb-login").addClass("logout");
 }
 
