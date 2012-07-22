@@ -75,6 +75,7 @@ function WikiPage(article, position, currentPage) {
             this.textElement.css("bottom", screenPosition.y - 200);
         }
         
+        gl.rotate(30, 0, 0, 1);
         gl.rotate(90, 0, 1, 0);
 
         gl.enable(gl.BLEND);
