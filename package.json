@@ -17,7 +17,7 @@
   "main": "server.js",
   "dependencies": {
     "now": "*",
-    "express": "*",
+    "express": "2.5.9",
     "colors": "0.5.0",
     "markdown": "*"
   },
