@@ -1,6 +1,9 @@
 var uid = 0;
 var name = "Anonymous";
 
+console.log("Testing 123");
+
+
 function facebookLogin() {
   console.log("Trying to log in");
   FB.login(function(response) {
@@ -15,6 +18,7 @@ function facebookLogout() {
 }
 
 function showLoginButton() {
+  console.log("Some logging");
   $("#fb-login").unbind("click");
   $("#fb-login").text("Login with Facebook")
   $("#fb-login").click(function() {
