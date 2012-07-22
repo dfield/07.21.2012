@@ -2,6 +2,7 @@ var uid = 0;
 var name = "Anonymous";
 
 function facebookLogin() {
+  console.log("Trying to log in");
   FB.login(function(response) {
     handleResponse(response);
   }, {scope:'email'});
@@ -38,8 +39,7 @@ function handleResponse(response) {
 
 window.fbAsyncInit = function() {
 	var appId;
-	if(window.location.toString().indexOf('herokuapp') != -1) {
-	  //TODO make a new app for heroku.
+	if(window.location.toString().indexOf('coursekick') != -1) {
 		appId = '475997832411925';
 	} else {
 		appId = '346135092130975';
