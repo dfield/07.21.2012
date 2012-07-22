@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 // assuming io is the Socket.IO server object
 io.configure(function () { 
-  io.set("transports", ["flash"]); 
+  io.set("transports", ["xhr-polling"]); 
   io.set("polling duration", 10); 
 });
 
