@@ -81,6 +81,7 @@ function displayPlayers() {
     $("#players").append(playerDiv);
   }
   $("#players").fadeIn();
+  $("#players-header").fadeIn();
   $(".article").ellipsis();
 }
 
