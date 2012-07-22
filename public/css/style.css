@@ -1,7 +1,8 @@
 body {
   font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
   font-size: 125%;
-  margin: 0px; }
+  margin: 0px;
+  -webkit-user-select: none; }
 
 .test {
   font-size: 30px; }
