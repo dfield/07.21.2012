@@ -20,6 +20,16 @@ socket.on('diff', function(diff) {
   displayPlayers();
 });
 
+socket.on('articles', function(articlesData) {
+  relatedPages = [];
+  for (articleId in articlesData) {
+    var article = new Article(articleId);
+    article.name = articlesData[articleId].name;
+    var wikiPage = new WikiPage(article, [10, 10], false);
+    relatedPages.push(wikiPage);
+  }
+});
+
 function displayPlayers() {
   $("#players").html("");
   for (var playerId in world.players) {
@@ -33,7 +43,6 @@ function displayPlayers() {
 }
 
 function setArticle(article) {
-  console.log("here");
   socket.emit("setArticle", article.id);
 }
 

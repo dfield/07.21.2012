@@ -40,7 +40,7 @@ window.fbAsyncInit = function() {
 	var appId;
 	if(window.location.toString().indexOf('herokuapp') != -1) {
 	  //TODO make a new app for heroku.
-		appId = '';
+		appId = '475997832411925';
 	} else {
 		appId = '346135092130975';
 	}

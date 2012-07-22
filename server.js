@@ -17,6 +17,7 @@ app.use(express.static(__dirname + '/public'));
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
     game.addClient(socket, opts);
+    socket.emit('articles', game.getArticles())
   });
   
   socket.on('logout', function() {
@@ -28,12 +29,7 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('setArticle', function(articleId) {
-    console.log("Setting article");
     game.setArticle(socket, articleId);
-  });
-  
-  socket.on('getNode', function(data) {
-    socket.emit("nodeData", {"title": "Tala Huhe - Emperor of China"})
   });
 });
 
