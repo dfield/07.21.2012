@@ -1,5 +1,5 @@
 function Player() {
-  this.article = null;
+  this.article = 0;
 }
 
 Player.prototype = { };
