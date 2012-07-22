@@ -21,7 +21,6 @@ function useNewPages() {
     $.each(relatedPages, function(i, elt) {
         elt.alpha = 0;
 
-        /*
         elt.textElement.css("opacity", "0.05");
         elt.textElement.animate({
             opacity: 0.4,
@@ -29,7 +28,7 @@ function useNewPages() {
             // this is so that opacity is controlled via css
             $(this).css("opacity", "");
         });
-        */
+
         $("body").append(elt.textElement);
     });
 
@@ -67,7 +66,9 @@ $(document).ready(function() {
                     moveDestination = page;
                     page.highlighted = false;
                     
-                    $(".page-title").fadeOut(textFadeDuration * 1000);
+                    $(".page-title").animate({
+                        opacity: 0,
+                    }, textFadeDuration * 1000);
                 }
             }
         }
