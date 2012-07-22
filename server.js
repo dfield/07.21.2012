@@ -27,6 +27,10 @@ io.sockets.on('connection', function (socket) {
     game.removeClient(socket);
   });
   
+  socket.on('setArticle', function(articleId) {
+    game.setArticle(socket, articleId);
+  });
+  
   socket.on('getNode', function(data) {
     socket.emit("nodeData", {"title": "Tala Huhe - Emperor of China"})
   });
