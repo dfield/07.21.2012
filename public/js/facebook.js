@@ -40,6 +40,7 @@ function handleResponse(response) {
 window.fbAsyncInit = function() {
 	var appId;
 	if(window.location.toString().indexOf('coursekick') != -1) {
+	  console.log("stuff here");
 		appId = '475997832411925';
 	} else {
 		appId = '346135092130975';
