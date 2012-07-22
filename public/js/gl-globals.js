@@ -78,7 +78,7 @@ function initGlobals() {
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
         }\
         ', '\
-        uniform vec4 color;\
+        uniform vec3 color;\
         uniform float alpha;\
         varying vec2 coord;\
         void main() {\
@@ -95,8 +95,7 @@ function initGlobals() {
                 lengthAlpha = 1.0 - (coord.y - fadeEnd) / (1.0 - fadeEnd);\
             }\
             float cumulativeAlpha = alpha * sideAlpha * lengthAlpha;\
-            vec3 outColor = vec3(1, 1, 1);\
-            gl_FragColor = vec4(outColor * cumulativeAlpha, cumulativeAlpha);\
+            gl_FragColor = vec4(color * cumulativeAlpha, cumulativeAlpha);\
         }\
     ');
 
