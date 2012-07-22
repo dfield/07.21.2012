@@ -2,6 +2,7 @@ var uid = 0;
 var name = "Anonymous";
 
 function facebookLogin() {
+  console.log("Trying to log in");
   FB.login(function(response) {
     handleResponse(response);
   }, {scope:'email'});
