@@ -47,8 +47,8 @@ function Game() {
   this.articleTarget = new Article("Baegun_Station", 548001);
   this.articleTargetIndex = 0;
   this.articleTargets = [
-    new Article("Baegun_Station", 548001);
-    new Article("Anguk_Station", 378759);
+    new Article("Baegun_Station", 548001),
+    new Article("Anguk_Station", 378759)
   ];
   this.nextPlayerId = 0;
 }
