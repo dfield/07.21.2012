@@ -6,6 +6,9 @@ function WikiPage(article, position, currentPage) {
     var lowerBound = -50;
     var upperBound = -30;
     var rand = Math.random();
+    var startSize = .7 + rand * .7;
+    this.size = startSize;
+
     var zCoord = (!!currentPage) ? 0 : lowerBound + rand * (upperBound - lowerBound);
     var fontSize = lowerTextBound + rand * (upperTextBound - lowerTextBound);;
     var r = .6 + Math.random() * .4;
@@ -45,7 +48,6 @@ function WikiPage(article, position, currentPage) {
     
     var sizeAnimationDuration = 0.1;
     var sizeAnimationMaxSize = 1.2;
-    this.size = 1;
     this.hitSize = this.size + 0.5;
 
     this.alpha = 1;
@@ -59,7 +61,7 @@ function WikiPage(article, position, currentPage) {
             this.sizeAnimator.advanceToZero(seconds);
         }
 
-        this.size = 1 + this.sizeAnimator.get();
+        this.size = startSize + this.sizeAnimator.get();
         this.hitSize = this.size + 1 ;
     }
 
@@ -82,7 +84,6 @@ function WikiPage(article, position, currentPage) {
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
-        gl.scale(this.size, this.size, this.size);
 
         if (!this.currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
@@ -92,8 +93,11 @@ function WikiPage(article, position, currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
             this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);
             this.textElement.css("bottom", screenPosition.y - 200);
+            this.size = 1;
         }
-        
+
+        gl.scale(this.size, this.size, this.size);
+
         gl.rotate(30, 0, 0, 1);
         gl.rotate(90, 0, 1, 0);
 
