@@ -44,7 +44,7 @@ function Game() {
   this.world = new World();
   this.clients = {};
   this.facebookIds = {};
-  this.articleTarget = new Article("DJF.me bob me");
+  this.articleTarget = new Article("DJF.me bob me", 33);
   this.articles = {
     1: new Article("Tala Huhe - Man of the Year"),
     2: new Article("Devin Finzer - One cool dude"),
@@ -139,6 +139,11 @@ Game.prototype.setArticle = function(playerId, articleId) {
     var currentArticle = self.redis.get(articleId, function(err, reply) {
       var currentArticle = JSON.parse(reply);
       player.article = new Article(currentArticle.page_title, articleId);
+      if (player.article.id = self.articleTarget.id) {
+        for (var clientId in self.clients) {
+          self.clients[clientId].emit("articleTarget", "A new target yo.");
+        }
+      }
       self.update();
     });
   })(this);
