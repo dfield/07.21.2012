@@ -29,7 +29,7 @@ socket.on('articles', function(articlesData) {
   var lowerBound = -20;
   var upperBound = 20;
   
-  relatedPages = [];
+  nextRelatedPages = [];
   for (articleId in articlesData) {
     var article = new Article(articlesData[articleId].name, articleId);
     
@@ -37,7 +37,12 @@ socket.on('articles', function(articlesData) {
     var y = lowerBound + (Math.random() * (upperBound - lowerBound));
     
     var wikiPage = new WikiPage(article, [x, y], false);
-    relatedPages.push(wikiPage);
+    nextRelatedPages.push(wikiPage);
+  }
+
+  // on the first receieve, the related pages array is empty
+  if (relatedPages.length == 0) {
+    useNewPages();
   }
 });
 

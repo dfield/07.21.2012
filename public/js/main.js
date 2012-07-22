@@ -1,10 +1,23 @@
 var gl = GL.create();
+var nextRelatedPages = [];
 var relatedPages = [];
 var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], true);
 
-$(window).unload(function() {
-    alert("HI");
-});
+function useNewPages() {
+    if (relatedPages.length > 0) {
+        $.each(relatedPages, function(i, elt) {
+            console.log(elt);
+            elt.textElement.remove();
+        });
+    }
+
+    relatedPages = nextRelatedPages;
+    nextRelatedPages = [];
+    
+    $.each(relatedPages, function(i, elt) {
+        $("body").append(elt.textElement);
+    });
+}
 
 $(document).ready(function() {
     /* WEBGL stuff */
@@ -26,6 +39,8 @@ $(document).ready(function() {
     var cameraOffset = new GL.Vector(0, 1.5, 5);
     var moveAnimationRemaining = 0;
     var moveDestination = null;
+    var moveDuration = 0.5;
+    var textFadeDuration = moveDuration / 2;
 
     document.onmousedown = function(e) {
       var tracer = new GL.Raytracer();
@@ -36,11 +51,11 @@ $(document).ready(function() {
           var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
           if (result) {
               setArticle(page.article);
-              moveAnimationRemaining = 1;
+              moveAnimationRemaining = moveDuration;
               moveDestination = page.position;
               page.highlighted = false;
 
-              $(".page-title").fadeOut(500);
+              $(".page-title").fadeOut(textFadeDuration * 1000);
           }
       }
     }
@@ -66,11 +81,21 @@ $(document).ready(function() {
             page.update(seconds);
         }
         
-        moveAnimationRemaining -= seconds;
-        if (moveAnimationRemaining <= 0) {
-            $(".page-title").fadeIn(500);
+        if (moveAnimationRemaining > 0) {
+            moveAnimationRemaining -= seconds;
+        }
+
+        if (moveAnimationRemaining < 0) {
             moveAnimationRemaining = 0;
             moveDestination = null;
+            
+            if (nextRelatedPages.length > 0) {
+                useNewPages();
+            } else {
+                // ???
+            }
+
+            $(".page-title").fadeIn(textFadeDuration * 1000);
         }
     };
 
@@ -89,7 +114,11 @@ $(document).ready(function() {
         
         var cameraPosition;
         if (moveAnimationRemaining > 0) {
-            cameraPosition = GL.Vector.lerp(moveDestination, currentPage.position, moveAnimationRemaining); 
+            cameraPosition = GL.Vector.lerp(
+                moveDestination,
+                currentPage.position,
+                moveAnimationRemaining / moveDuration
+            ); 
             gl.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
         }
 
