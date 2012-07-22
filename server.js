@@ -60,6 +60,7 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('setArticle', function(articleId) {
+    console.log("article id " + articleId);
     game.setArticle(socket.playerId, articleId);
     game.getArticles(socket, function(data) {
       socket.emit('articles', data);
