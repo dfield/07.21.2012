@@ -60,19 +60,6 @@ function WikiPage(article, position, currentPage) {
     }
 
     this.draw = function() {
-        if (this.highlighted) {
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-            flatShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimationTime * 0.3]
-            }).draw(bridgeMesh);
-            gl.disable(gl.BLEND);
-            this.textElement.addClass("highlight");
-        }
-        else {
-            this.textElement.removeClass("highlight");
-        }
-
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
@@ -104,6 +91,19 @@ function WikiPage(article, position, currentPage) {
         gl.disable(gl.BLEND);
 
         gl.popMatrix();
+
+        if (this.highlighted) {
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+            flatShader.uniforms({
+                color: [0.3, 0.3, 0.3, this.sizeAnimationTime * 0.3]
+            }).draw(bridgeMesh);
+            gl.disable(gl.BLEND);
+            this.textElement.addClass("highlight");
+        }
+        else {
+            this.textElement.removeClass("highlight");
+        }
     }
 }
 
