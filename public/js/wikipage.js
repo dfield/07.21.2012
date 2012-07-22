@@ -61,14 +61,12 @@ function WikiPage(article, position, currentPage) {
 
     this.draw = function() {
         if (this.highlighted) {
-            gl.disable(gl.DEPTH_TEST);
             gl.enable(gl.BLEND);
-            gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
             flatShader.uniforms({
-                color: [1, 1, 1, this.sizeAnimationTime * 0.3]
+                color: [0.3, 0.3, 0.3, this.sizeAnimationTime * 0.3]
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
-            gl.enable(gl.DEPTH_TEST);
             this.textElement.addClass("highlight");
         }
         else {
@@ -93,7 +91,7 @@ function WikiPage(article, position, currentPage) {
         gl.rotate(90, 0, 1, 0);
 
         gl.enable(gl.BLEND);
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     
         planetTexture1.bind(0);
         shadyTextureShader.uniforms({
