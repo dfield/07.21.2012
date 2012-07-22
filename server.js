@@ -26,20 +26,9 @@ if (process.env.REDISTOGO_URL) {
 }
 game.redis = redis;
 
-for (var id in graph) {
-  var articleData = JSON.stringify(graph[id]);
-  redis.set(id, articleData);
-}
-
 // match app routes before serving static file of that name
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
-
-// assuming io is the Socket.IO server object
-io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
@@ -60,6 +49,7 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('setArticle', function(articleId) {
+    console.log("article id " + articleId);
     game.setArticle(socket.playerId, articleId);
     game.getArticles(socket, function(data) {
       socket.emit('articles', data);

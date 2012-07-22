@@ -1,6 +1,7 @@
 var gl = GL.create();
 var nextRelatedPages = [];
 var relatedPages = [];
+var needsSwap = false;
 var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], true);
 
 var moveDuration = 0.5;
@@ -20,7 +21,6 @@ function useNewPages() {
     $.each(relatedPages, function(i, elt) {
         elt.alpha = 0;
 
-        /*
         elt.textElement.css("opacity", "0.05");
         elt.textElement.animate({
             opacity: 0.4,
@@ -28,12 +28,14 @@ function useNewPages() {
             // this is so that opacity is controlled via css
             $(this).css("opacity", "");
         });
-        */
+
         $("body").append(elt.textElement);
     });
 
     $(".page-title").ellipsis();
     $(".page-title").show();
+
+    needsSwap = false;
 }
 
 $(document).ready(function() {
@@ -61,10 +63,12 @@ $(document).ready(function() {
                 if (result) {
                     setArticle(page.article);
                     moveAnimationRemaining = moveDuration;
-                    moveDestination = page.position;
+                    moveDestination = page;
                     page.highlighted = false;
                     
-                    $(".page-title").fadeOut(textFadeDuration * 1000);
+                    $(".page-title").animate({
+                        opacity: 0,
+                    }, textFadeDuration * 1000);
                 }
             }
         }
@@ -96,12 +100,18 @@ $(document).ready(function() {
         moveAnimationRemaining = Math.max(moveAnimationRemaining - seconds, 0);
         if (moveAnimationRemaining == 0) {
             moveAnimationRemaining = 0;
-            moveDestination = null;
             
-            if (nextRelatedPages.length > 0) {
+            if (moveDestination != null) {
+                currentPage = moveDestination;
+                currentPage.position.x = 0;
+                currentPage.position.y = 0;
+                currentPage.position.z = 0;
+                moveDestination = null;
+            }
+
+            console.log(needsSwap);
+            if (needsSwap) {
                 useNewPages();
-            } else {
-                // ???
             }
         }
     };
@@ -122,7 +132,7 @@ $(document).ready(function() {
         var cameraPosition;
         if (moveAnimationRemaining > 0) {
             cameraPosition = GL.Vector.lerp(
-                moveDestination,
+                moveDestination.position,
                 currentPage.position,
                 moveAnimationRemaining / moveDuration
             ); 

@@ -65,6 +65,7 @@ socket.on('articles', function(articlesData) {
   }
 
   // on the first receieve, the related pages array is empty
+  needsSwap = true;
   if (relatedPages.length == 0) {
     useNewPages();
   }
