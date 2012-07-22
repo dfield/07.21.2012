@@ -30,16 +30,18 @@ socket.on('articleTarget', function(articleTarget) {
 })
 
 socket.on('articles', function(articlesData) {
-  var lowerBound = -20;
-  var upperBound = 20;
+  var lowerBoundX = -22;
+  var upperBoundX = 12;
+  var lowerBoundY = 5;
+  var upperBoundY = 15; 
   
   nextRelatedPages = [];
   for (articleId in articlesData) {
     var article = new Article(articlesData[articleId].name, articleId);
     
-    var x = lowerBound + (Math.random() * (upperBound - lowerBound));
-    var y = lowerBound + (Math.random() * (upperBound - lowerBound));
-    
+    var x = lowerBoundX + (Math.random() * (upperBoundX - lowerBoundX));
+    var y = lowerBoundY + (Math.random() * (upperBoundY - lowerBoundY));
+  
     var wikiPage = new WikiPage(article, [x, y], false);
     nextRelatedPages.push(wikiPage);
   }
