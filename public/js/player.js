@@ -1,5 +1,9 @@
+if (typeof require != 'undefined') {
+  var Article = require('./article').Article;
+}
+
 function Player() {
-  this.article = 0;
+  this.article = new Article("Tala's great adventure", 1);
 }
 
 Player.prototype = { };
