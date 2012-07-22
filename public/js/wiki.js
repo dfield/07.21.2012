@@ -1,5 +1,5 @@
 var world = new World();
-var socket = io.connect('http://localhost:7000');
+var socket = io.connect(window.location.hostname);
 
 socket.emit('getNode', { 'node_id': 'data' });
 
