@@ -49,7 +49,7 @@ function WikiPage(article, position, currentPage) {
     });
     
     var sizeAnimationDuration = 0.1;
-    var sizeAnimationMaxSize = 2;
+    var sizeAnimationMaxSize = 1.2;
 
     this.update = function(seconds) {
         seconds *= 1 / sizeAnimationDuration;
@@ -78,6 +78,7 @@ function WikiPage(article, position, currentPage) {
         gl.translate(this.position.x, this.position.y, this.position.z);
 
         var scaleFactor = 1 + this.sizeAnimationTime * (sizeAnimationMaxSize - 1);
+ 
         gl.scale(scaleFactor, scaleFactor, scaleFactor);
 
         if (!this.currentPage) {

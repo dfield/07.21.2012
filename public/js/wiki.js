@@ -21,7 +21,8 @@ function displayPlayers() {
     var player = world.players[playerId];
     var playerDiv = makeElement(".player");
     playerDiv.find(".name").text(player.name);
-    playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture")
+    playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture");
+    playerDiv.find(".article").text(player.article.name);
     $("#players").append(playerDiv);
   }
 }

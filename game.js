@@ -44,15 +44,14 @@ function Game() {
   this.world = new World();
   this.clients = {};
   this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
-  this.players = {};
   this.nextPlayerId = 0;
 }
 
 Game.prototype.update = function() {
   // Calculate the diff between the new world and this one.
   var playersDiff = {};
-  for (var playerId in this.players) {
-    playersDiff[playerId] = this.players[playerId].monitor.diff();
+  for (var playerId in this.world.players) {
+    playersDiff[playerId] = this.world.players[playerId].monitor.diff();
   }
   
   // Now broadcast the change to all the clients.
@@ -63,8 +62,8 @@ Game.prototype.update = function() {
 
 Game.prototype.getPlayers = function() {
   var playerDump = {};
-  for (var playerId in this.players) {
-    var player = this.players[playerId];
+  for (var playerId in this.world.players) {
+    var player = this.world.players[playerId];
     var dump = player.monitor.dump();
     playerDump[playerId] = dump;
   }
@@ -83,13 +82,14 @@ Game.prototype.addClient = function(socket, opts) {
   player.name = opts["name"];
   player.facebookId = opts["facebookId"];
   player.monitor = new Monitor(player)
-    .track("article")
+    .track("article.name")
+    .track("article.id")
     .track("facebookId") 
     .track("name")    
   
   // Add the client to the dictionary.
   this.clients[socket.id] = socket;
-  this.players[playerId] = player;
+  this.world.players[playerId] = player;
   
   // Broadcast the data to the existing clients.
   var playerData = this.getPlayers();
@@ -99,7 +99,7 @@ Game.prototype.addClient = function(socket, opts) {
 }
 
 Game.prototype.removeClient = function(socket) {
-  delete this.players[socket.playerId];
+  delete this.world.players[socket.playerId];
   delete this.clients[socket.id];
   
   // Broadcast the data.
@@ -110,7 +110,9 @@ Game.prototype.removeClient = function(socket) {
 }
 
 Game.prototype.setArticle = function(socket, articleId) {
-  var player = this.players[socket.playerId];
+  var player = this.world.players[socket.playerId];
+  console.log(articleId);
+  console.log(this.articles);
   player.article = this.articles[articleId];
   this.update();
 }
