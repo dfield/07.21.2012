@@ -1,13 +1,19 @@
+body {
+  font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
+  font-size: 125%;
+}
+
 .test {
 	font-size: 30px;
 }
 
 #fb-login {
   position: relative;
+  display: none;
   z-index: 2;
 }
 
-#opponents {
+#players {
   position: absolute;
   width: 200px;
   height: 500px;
@@ -15,6 +21,10 @@
   top: 20px;
   background-color: gray;
   z-index: 2;
+}
+
+.player {
+  padding: 20px;
 }
 
 .template {

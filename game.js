@@ -57,7 +57,21 @@ Game.prototype.update = function() {
   }
 }
 
+Game.prototype.getPlayers = function() {
+  var playerDump = {};
+  for (var playerId in this.players) {
+    var player = this.players[playerId];
+    var dump = player.monitor.dump();
+    playerDump[playerId] = dump;
+  }
+  return playerDump;
+}
+
 Game.prototype.addClient = function(socket, opts) {
+  if (socket.id in this.clients) {
+    return;
+  }
+  
   // Make a new player.
   var playerId = this.nextPlayerId++;
   socket.playerId = playerId;
@@ -73,22 +87,21 @@ Game.prototype.addClient = function(socket, opts) {
   this.clients[socket.id] = socket;
   this.players[playerId] = player;
   
-  // Broadcast the data.
-  var dump = player.monitor.dump();
+  // Broadcast the data to the existing clients.
+  var playerData = this.getPlayers();
   for (var id in this.clients) {
-    if (id != socket.id) {
-      this.clients[id].emit('addPlayer', playerId, dump);
-    }
+    this.clients[id].emit('players', playerData);
   }
 }
 
 Game.prototype.removeClient = function(socket) {
-  delete players[socket.playerId];
-  delete clients[socket.id];
+  delete this.players[socket.playerId];
+  delete this.clients[socket.id];
   
   // Broadcast the data.
+  var playerData = this.getPlayers();
   for (var id in this.clients) {
-    this.clients[id].emit('removePlayer', socket.playerId);
+    this.clients[id].emit('players', playerData);
   }
 }
 

@@ -20,7 +20,11 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('logout', function(data) {
-    
+    game.removeClient(socket);
+  });
+  
+  socket.on('disconnect', function() {
+    game.removeClient(socket);
   });
   
   socket.on('getNode', function(data) {
