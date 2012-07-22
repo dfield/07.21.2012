@@ -3,7 +3,7 @@ if (typeof require != 'undefined') {
 }
 
 function Player() {
-  this.article = new Article("Starting article, yo.", 4528558);
+  this.article = new Article("Starting article, yo.", 2052339);
 }
 
 Player.prototype = { };

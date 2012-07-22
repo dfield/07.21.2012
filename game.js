@@ -44,7 +44,7 @@ function Game() {
   this.world = new World();
   this.clients = {};
   this.facebookIds = {};
-  this.articleTarget = new Article("Greylock", 2052339);
+  this.articleTarget = new Article("Baegun_Station", 548001);
   this.articleTargetIndex = 0;
   this.articleTargets = [
     new Article("Baegun_Station", 548001),
