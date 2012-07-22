@@ -113,4 +113,7 @@ Game.prototype.setArticle = function(socket, articleId) {
   this.update();
 }
 
+Game.prototype.newArticleTarget = function() {
+}
+
 exports.Game = Game;
