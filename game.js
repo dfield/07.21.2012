@@ -43,6 +43,7 @@ Monitor.prototype.diff = function() {
 function Game() {
   this.world = new World();
   this.clients = {};
+  this.facebookIds = {};
   this.articleTarget = new Article("DJF.me bob me");
   this.articles = {
     1: new Article("Tala Huhe - Man of the Year"),
@@ -88,12 +89,21 @@ Game.prototype.addClient = function(socket, opts) {
     return;
   }
   
+  // If the same facebook user is logging in, we need a hack to refresh this user.
+  if (opts["facebookId"] in this.facebookIds) {
+    var client = this.clients[socket.id];
+    var player = this.facebookIds[opts["facebookId"]];
+    delete this.world.players[player.id];
+    delete this.clients[socket.id];
+  }
+  
   // Make a new player.
   var playerId = this.nextPlayerId++;
   socket.playerId = playerId;
   var player = new Player();
   player.name = opts["name"];
   player.facebookId = opts["facebookId"];
+  player.id = playerId;
   player.monitor = new Monitor(player)
     .track("article.name")
     .track("article.id")
@@ -103,6 +113,7 @@ Game.prototype.addClient = function(socket, opts) {
   // Add the client to the dictionary.
   this.clients[socket.id] = socket;
   this.world.players[playerId] = player;
+  this.facebookIds[player.facebookId] = player;
   
   // Broadcast the data to the existing clients.
   var playerData = this.getPlayers();
