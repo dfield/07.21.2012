@@ -15,6 +15,11 @@ socket.on('players', function(playerData) {
   displayPlayers();
 });
 
+socket.on('diff', function(diff) {
+  world.applyPlayerDiff(diff);
+  displayPlayers();
+});
+
 function displayPlayers() {
   $("#players").html("");
   for (var playerId in world.players) {
