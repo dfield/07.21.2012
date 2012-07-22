@@ -48,6 +48,8 @@ function WikiPage(article, position, currentPage) {
     
     var sizeAnimationDuration = 0.1;
     var sizeAnimationMaxSize = 1.2;
+    this.size = 1;
+    this.hitSize = this.size + 0.5;
 
     this.update = function(seconds) {
         seconds *= 1 / sizeAnimationDuration;
@@ -57,6 +59,9 @@ function WikiPage(article, position, currentPage) {
         } else {
             this.sizeAnimationTime = Math.max(this.sizeAnimationTime - seconds, 0);
         }
+
+        this.size = 1 + this.sizeAnimationTime * (sizeAnimationMaxSize - 1);
+        this.hitSize = this.size + 1 ;
     }
 
     this.draw = function() {
@@ -74,10 +79,7 @@ function WikiPage(article, position, currentPage) {
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
-
-        var scaleFactor = 1 + this.sizeAnimationTime * (sizeAnimationMaxSize - 1);
- 
-        gl.scale(scaleFactor, scaleFactor, scaleFactor);
+        gl.scale(this.size, this.size, this.size);
 
         if (!this.currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
