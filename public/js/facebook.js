@@ -44,7 +44,9 @@ function handleResponse(response) {
 
 window.fbAsyncInit = function() {
 	var appId;
+	console.log("there");
 	if(window.location.toString().indexOf('coursekick') != -1) {
+	  console.log("here");
 	  //TODO make a new app for heroku.
 		appId = '475997832411925';
 	} else {
