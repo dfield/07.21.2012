@@ -19,6 +19,9 @@ body {
 	z-index: 2;
 	color: #CAF4FF;
 	text-shadow: 0px 0px 6px #09F;
+	width: 200px;
+	line-height: 13px;
+	text-align: center;
 	@include telex-font;
 }
 
