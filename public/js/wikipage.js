@@ -32,36 +32,6 @@ function WikiPage(name, position) {
         normals: true
     });
     
-    var shader = new GL.Shader('\
-varying vec3 normal;\
-void main() {\
-  normal = gl_Normal;\
-  gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
-}\
-', '\
-varying vec3 normal;\
-void main() {\
-  vec3 light = vec3(3,5,6);\
-  light = normalize(light);\
-  float dProd = max(0.0, dot(normal, light));\
-  gl_FragColor = vec4(dProd, dProd, dProd, 1.0);\
-}\
-    ');
-    
-    var textureShader = new GL.Shader('\
-        varying vec2 coord;\
-        void main() {\
-          coord = gl_TexCoord.xy;\
-          gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
-        }\
-        ', '\
-        varying vec2 coord;\
-        uniform sampler2D texture;\
-        void main() {\
-          gl_FragColor = texture2D(texture, coord);\
-        }\
-    ');
-
     this.draw = function() {
         gl.pushMatrix();
         

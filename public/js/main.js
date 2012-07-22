@@ -1,6 +1,8 @@
 var gl = GL.create();
 
 $(document).ready(function() {
+    initShaders();
+
     var currentPage = new WikiPage("Potato", [0, 0]);
     var relatedPages = [
         new WikiPage("Spud", [0, 0]),
@@ -8,18 +10,11 @@ $(document).ready(function() {
         new WikiPage("Farm", [-10, 10]),
     ];
     currentPage.position = [0, 0, 0];
+    var planeMesh = GL.Mesh.plane({
+        coords: true,
+    });
 
     var cubeMesh = GL.Mesh.cube();
-    var flatShader = new GL.Shader('\
-        void main() {\
-            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
-        }\
-        ', '\
-        uniform vec3 color;\
-        void main() {\
-            gl_FragColor = vec4(color, 1);\
-        }\
-        ');
 
     gl.onupdate = function(seconds) {
 
@@ -30,6 +25,7 @@ $(document).ready(function() {
         gl.loadIdentity();
         gl.translate(0, -1.5, -5);
 
+        // draw the background
         gl.pushMatrix();
         gl.scale(50, 50, 1);
         gl.translate(0, 0, -60);
