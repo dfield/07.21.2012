@@ -20,14 +20,7 @@ function useNewPages() {
 
 $(document).ready(function() {
     /* WEBGL stuff */
-    initShaders();
-
-    var planeMesh = GL.Mesh.plane({
-        coords: true,
-    });
-
-    var cubeMesh = GL.Mesh.cube();
-    var bgTexture = GL.Texture.fromURL("/images/starfield.jpg");
+    initGlobals();
 
     var mousePosition = { x: 0, y: 0 };
     
