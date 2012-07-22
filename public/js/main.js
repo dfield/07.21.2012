@@ -6,7 +6,6 @@ var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], tr
 function useNewPages() {
     if (relatedPages.length > 0) {
         $.each(relatedPages, function(i, elt) {
-            console.log(elt);
             elt.textElement.remove();
         });
     }
