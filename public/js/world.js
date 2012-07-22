@@ -1,5 +1,6 @@
 function World() {
   this.players = {};
+  this.articleTarget = 1;
 }
 
 World.prototype.applyPlayerDiff = function(diff) {

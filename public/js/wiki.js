@@ -25,6 +25,10 @@ socket.on('diff', function(diff) {
   displayPlayers();
 });
 
+socket.on('articleTarget', function(articleTarget) {
+  changeArticleTarget(articleTarget);
+})
+
 socket.on('articles', function(articlesData) {
   var lowerBound = -20;
   var upperBound = 20;
@@ -53,6 +57,10 @@ function displayPlayers() {
   }
   $("#players").fadeIn();
   $(".article").ellipsis();
+}
+
+function changeArticleTarget(articleTarget) {
+  $("#article_target").text("Target: " + articleTarget);
 }
 
 function setArticle(article) {
