@@ -23,6 +23,10 @@ function displayPlayers() {
   }
 }
 
+function setArticle(article) {
+  socket.emit("setArticle", article.id);
+}
+
 function login(loginData) {
   socket.emit('login', loginData)
 }

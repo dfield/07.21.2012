@@ -49,8 +49,8 @@ function Game() {
 Game.prototype.update = function() {
   // Calculate the diff between the new world and this one.
   var playersDiff = {};
-  for (var playerId in players) {
-    playerDiff[playerId] = players.monitor.diff();
+  for (var playerId in this.players) {
+    playersDiff[playerId] = this.players[playerId].monitor.diff();
   }
   
   // Now broadcast the change to all the clients.
@@ -110,7 +110,7 @@ Game.prototype.removeClient = function(socket) {
 Game.prototype.setArticle = function(socket, articleId) {
   var player = this.players[socket.playerId];
   player.article = this.articles[articleId];
-  self.update();
+  this.update();
 }
 
 exports.Game = Game;

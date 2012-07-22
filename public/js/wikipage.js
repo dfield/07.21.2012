@@ -1,5 +1,5 @@
-function WikiPage(name, position, currentPage) {
-    this.name = name;
+function WikiPage(article, position, currentPage) {
+    this.article = article;
     this.currentPage = currentPage;
     var zCoord = (!!currentPage) ? 0 : -40;
     this.position = new GL.Vector(
@@ -13,10 +13,10 @@ function WikiPage(name, position, currentPage) {
   
     if (!this.currentPage) {
         var text = $("<span></span>")
-            .attr("id", name)
+            .attr("id", this.article.name)
             .addClass("page-title")
             .css("position", "absolute")
-            .text(name);
+            .text(this.article.name);
         $("body").append(text);
         this.textElement = text;
     }
@@ -57,8 +57,10 @@ function WikiPage(name, position, currentPage) {
             this.textElement.css("bottom", screenPosition.y);
         }
         
+        gl.rotate(90, 0, 1, 0);
+
         planetTexture1.bind(0);
-        textureShader.uniforms({
+        shadyTextureShader.uniforms({
             texture: 0,
         });
         shadyTextureShader.draw(sphereMesh);
