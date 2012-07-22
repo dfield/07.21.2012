@@ -44,7 +44,7 @@ function Game() {
   this.world = new World();
   this.clients = {};
   this.facebookIds = {};
-  this.articleTarget = new Article("Baegun_Station", 548001);
+  this.articleTarget = new Article("North America", 3662151);
   this.articleTargetIndex = 0;
   this.articleTargets = [
     new Article("United States", 5302153),
@@ -133,10 +133,16 @@ Game.prototype.setArticle = function(playerId, articleId, callback) {
       var currentArticle = JSON.parse(reply);
       player.article = new Article(currentArticle.page_title, articleId);
       if (player.article.id == self.articleTarget.id) {
+        console.log("YOU WON!");
         self.articleTargetIndex++;
         self.articleTargetIndex %= self.articleTargets.length;
         self.articleTarget = self.articleTargets[self.articleTargetIndex];
         for (var clientId in self.clients) {
+          if (self.clients[clientId].playerId == playerId) {
+            self.clients[clientId].emit("win");
+          } else {
+            self.clients[clientId].emit("lose");
+          }
           self.clients[clientId].emit("articleTarget", self.articleTarget.name);
         }
       }

@@ -23,6 +23,14 @@ socket.on('articleTarget', function(articleTarget) {
   changeArticleTarget(articleTarget);
 });
 
+socket.on('win', function() {
+  showWin();
+});
+
+socket.on('lose', function() {
+  showLose();
+});
+
 socket.on('currentArticle', function(articleName) {
   changeCurrentArticle(articleName);
 });
