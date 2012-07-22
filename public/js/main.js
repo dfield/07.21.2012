@@ -15,6 +15,7 @@ $(document).ready(function() {
     });
 
     var cubeMesh = GL.Mesh.cube();
+    var bgTexture = GL.Texture.fromURL("/images/starfield.jpg");
 
     gl.onupdate = function(seconds) {
 
@@ -27,12 +28,16 @@ $(document).ready(function() {
 
         // draw the background
         gl.pushMatrix();
-        gl.scale(50, 50, 1);
+        gl.scale(90, 50, 1);
         gl.translate(0, 0, -60);
-        flatShader.uniforms({
-            color: [1, 1, 1]
-        })
-        flatShader.draw(planeMesh);
+
+        bgTexture.bind(0);
+        textureShader.uniforms({
+            texture: 0,
+        });
+        textureShader.draw(planeMesh);
+        bgTexture.unbind(0);
+
         gl.popMatrix();
 
         // current page is at the origin

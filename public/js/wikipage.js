@@ -17,9 +17,7 @@ function WikiPage(name, position) {
     context.strokeText(name, leftOffset, topOffset);
     context.fillText(name, leftOffset, topOffset);
     context.restore();
-    this.nameTexture = GL.Texture.fromImage(canvas, {
-        minFilter: gl.LINEAR_MIPMAP_NEAREST,
-    });
+    this.nameTexture = GL.Texture.fromURL("/images/mountains.jpeg");
 
     this.position = [position[0], position[1], -40];
     
