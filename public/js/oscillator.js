@@ -21,8 +21,8 @@ Oscillator.prototype = {
     advanceToMax: function(seconds) {
     },
 
-    get: function() {
-        return Math.sin(this.currenttime) * this.amplitude;
+    get: function(offset) {
+        return Math.sin(this.currenttime + (offset || 0)) * this.amplitude;
     }
 };
 
