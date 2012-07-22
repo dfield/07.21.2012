@@ -24,7 +24,8 @@ io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
     console.log("logging in");
     game.addClient(socket, opts);
-    socket.emit('articles', game.getArticles())
+    socket.emit('articles', game.getArticles());
+    socket.emit('articleTarget', game.articleTarget.name);
   });
   
   socket.on('logout', function() {
@@ -40,6 +41,7 @@ io.sockets.on('connection', function (socket) {
     game.setArticle(socket, articleId);
     socket.emit('articles', game.getArticles());
   });
+
 });
 
 console.log('Your highness, at your service:'.yellow
