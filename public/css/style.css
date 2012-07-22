@@ -54,9 +54,6 @@ body {
     top: 0px;
     padding: 0px 11px 0px 33px; }
 
-.article {
-  color: white; }
-
 #target-wrapper {
   position: fixed;
   max-width: 500px;
@@ -139,7 +136,7 @@ body {
         font-size: 13px;
         font-style: italic;
         overflow: hidden;
-        width: 130px;
+        width: 125px;
         height: 30px;
         color: #A5B3FF;
         text-shadow: 0px 0px 7px #000; }
