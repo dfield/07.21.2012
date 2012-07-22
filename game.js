@@ -1,5 +1,5 @@
 var Player = require('./public/js/player').Player;
-var Article = require('./public/js/player').Article;
+var Article = require('./public/js/article').Article;
 
 /**
   * Monitor class takes care of diffs in the world.
@@ -41,8 +41,7 @@ Monitor.prototype.diff = function() {
   */
 function Game() {
   this.clients = {};
-  this.articles = {};
-  //this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
+  this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
   this.players = {};
   this.nextPlayerId = 0;
 }
