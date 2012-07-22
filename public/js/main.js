@@ -19,6 +19,7 @@ function useNewPages() {
     
     $.each(relatedPages, function(i, elt) {
         elt.alpha = 0;
+
         elt.textElement.css("opacity", 0);
         elt.textElement.animate({
             opacity: 0.4,
@@ -47,21 +48,23 @@ $(document).ready(function() {
     var moveDestination = null;
 
     document.onmousedown = function(e) {
-      var tracer = new GL.Raytracer();
-      var ray = tracer.getRayForPixel(e.x, e.y);
-      
-      for (var i = 0; i < relatedPages.length; i++) {
-          var page = relatedPages[i];
-          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
-          if (result) {
-              setArticle(page.article);
-              moveAnimationRemaining = moveDuration;
-              moveDestination = page.position;
-              page.highlighted = false;
-
-              $(".page-title").fadeOut(textFadeDuration * 1000);
-          }
-      }
+        if (moveAnimationRemaining == 0) {
+            var tracer = new GL.Raytracer();
+            var ray = tracer.getRayForPixel(e.x, e.y);
+            
+            for (var i = 0; i < relatedPages.length; i++) {
+                var page = relatedPages[i];
+                var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
+                if (result) {
+                    setArticle(page.article);
+                    moveAnimationRemaining = moveDuration;
+                    moveDestination = page.position;
+                    page.highlighted = false;
+                    
+                    $(".page-title").fadeOut(textFadeDuration * 1000);
+                }
+            }
+        }
     }
 
     gl.onupdate = function(seconds) {
