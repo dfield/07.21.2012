@@ -38,7 +38,7 @@ function handleResponse(response) {
 
 window.fbAsyncInit = function() {
 	var appId;
-	if(window.location.toString().indexOf('herokuapp') != -1) {
+	if(window.location.toString().indexOf('coursekick') != -1) {
 	  //TODO make a new app for heroku.
 		appId = '475997832411925';
 	} else {
