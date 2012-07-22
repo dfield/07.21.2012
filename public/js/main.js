@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         // draw the background
         gl.pushMatrix();
-        gl.scale(90, 50, 1);
+        gl.scale(65, 45, 1);
         gl.translate(0, 0, -60);
 
         bgTexture.bind(0);

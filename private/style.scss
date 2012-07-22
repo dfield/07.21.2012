@@ -7,6 +7,13 @@ body {
 	font-size: 30px;
 }
 
+.page-title {
+	position: "absolute";
+	z-index: 2;
+	color: #44aadd;
+	font-family: "Helvetica"
+}
+
 #fb-login {
   position: relative;
   display: none;
