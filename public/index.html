@@ -12,13 +12,16 @@
   <div id="players"></div>
   <div class="player template">
     <div class="image"><img></img></div>
-    <div class="name"></div>
-    <div class="article"></div>
+    <div class="user-info">
+      <div class="name"></div>
+      <div class="article article-shadow"></div>
+    </div>
   </div>
   
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
   <script src="/js/lib/socket.io.js"></script>
   <script src="/js/lib/jquery.js" defer></script>
+  <script src="/js/lib/autoellipsis.js" defer></script>
   <script src="/js/world.js" defer></script>
   <script src="/js/wiki.js" defer></script>
   <script src="http://evanw.github.com/lightgl.js/lightgl.js" defer></script>

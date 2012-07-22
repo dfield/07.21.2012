@@ -1,5 +1,5 @@
 var world = new World();
-var socket = io.connect('http://localhost:7000');
+var socket = io.connect(window.location.hostname);
 
 socket.emit('getNode', { 'node_id': 'data' });
 
@@ -41,6 +41,7 @@ function displayPlayers() {
     playerDiv.find(".image").find("img").attr("src", "https://graph.facebook.com/" + player.facebookId + "/picture");
     playerDiv.find(".article").text(player.article.name);
     $("#players").append(playerDiv);
+    playerDiv.find(".article").ellipsis();
   }
 }
 

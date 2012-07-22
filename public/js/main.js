@@ -7,6 +7,8 @@ var relatedPages = [
 var currentPage = new WikiPage("Potato", [0, 0], true);
 
 $(document).ready(function() {
+
+    /* WEBGL stuff */
     initShaders();
 
 
@@ -82,14 +84,14 @@ $(document).ready(function() {
 
         gl.popMatrix();
 
-        // current page is at the origin
-        currentPage.draw();
-
         // related pages are further out
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
             page.draw();
         }
+
+        // current page is at the origin
+        currentPage.draw();
     };
 
     gl.fullscreen({

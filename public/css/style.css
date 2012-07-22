@@ -15,9 +15,6 @@ body {
   position: relative;
   z-index: 2; }
 
-.image, .name {
-  float: left; }
-
 .article {
   color: white; }
 
@@ -36,16 +33,35 @@ body {
     padding: 6px;
     height: 50px;
     border-bottom: 1px solid #3E2A69; }
-    #players .player .image img {
-      border: 1px solid #794C7A;
-      border-radius: 11px;
-      box-shadow: 0px 0px 12px #A453D3; }
-    #players .player .name {
-      color: #FEF0FF;
-      font-size: 17px;
-      line-height: 46px;
-      padding-left: 10px;
-      text-shadow: 0px 0px 9px #6d34ff; }
+    #players .player .image {
+      float: left; }
+      #players .player .image img {
+        border: 1px solid #794C7A;
+        border-radius: 11px;
+        box-shadow: 0px 0px 12px #A453D3; }
+    #players .player .user-info {
+      float: left; }
+      #players .player .user-info .name {
+        width: 126px;
+        color: #FEF0FF;
+        font-size: 17px;
+        padding-left: 10px;
+        text-shadow: 0px 0px 9px #6d34ff;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
+      #players .player .user-info .article {
+        position: relative;
+        left: 11px;
+        font-size: 13px;
+        font-style: italic;
+        overflow: hidden;
+        width: 130px;
+        height: 30px;
+        color: #A5B3FF;
+        text-shadow: 0px 0px 7px #000; }
+      #players .player .user-info .article-shadow {
+        text-shadow: 0px 0px 7px #000; }
 
 .template {
   display: none; }
