@@ -1,5 +1,6 @@
 var world = new World();
 var socket = io.connect(window.location.hostname);
+var loggedIn = false;
 
 socket.emit('getNode', { 'node_id': 'data' });
 
@@ -21,6 +22,7 @@ socket.on('diff', function(diff) {
 });
 
 socket.on('articles', function(articlesData) {
+  console.log("article stuff");
   relatedPages = [];
   for (articleId in articlesData) {
     console.log(articlesData[articleId]);
@@ -51,7 +53,9 @@ function setArticle(article) {
 }
 
 function login(loginData) {
+  if (loggedIn) return;
   socket.emit('login', loginData)
+  loggedIn = true;
 }
 
 function logout() {
