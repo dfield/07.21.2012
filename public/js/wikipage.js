@@ -12,13 +12,11 @@ function WikiPage(article, position, currentPage) {
     this.sizeAnimationTime = 0;
   
     if (!this.currentPage) {
-        var text = $("<span></span>");
-        text.attr("id", this.article.name);
-        text.css("position", "absolute");
-        text.css("z-index", 2);
-        text.css("color", "#44AADD");
-        text.css("font-family", "Helvetica");
-        text.text(this.article.name);
+        var text = $("<span></span>")
+            .attr("id", this.article.name)
+            .addClass("page-title")
+            .css("position", "absolute")
+            .text(this.article.name);
         $("body").append(text);
         this.textElement = text;
     }
@@ -29,7 +27,12 @@ function WikiPage(article, position, currentPage) {
     
     var sphereMesh = GL.Mesh.sphere({
         detail: 10,
-        normals: true
+        normals: true,
+        coords: true
+    });
+
+    var planetTexture1 = GL.Texture.fromURL("/images/planet-texture3.jpg", {
+        minFilter: gl.LINEAR_MIPMAP_NEAREST
     });
     
     this.update = function(seconds) {
@@ -54,8 +57,12 @@ function WikiPage(article, position, currentPage) {
             this.textElement.css("bottom", screenPosition.y);
         }
         
-        shader.draw(sphereMesh);
-        
+        planetTexture1.bind(0);
+        textureShader.uniforms({
+            texture: 0,
+        });
+        shadyTextureShader.draw(sphereMesh);
+        planetTexture1.unbind(0);        
         gl.popMatrix();
     }
 }
