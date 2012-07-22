@@ -80,11 +80,8 @@ $(document).ready(function() {
             page.update(seconds);
         }
         
-        if (moveAnimationRemaining > 0) {
-            moveAnimationRemaining -= seconds;
-        }
-
-        if (moveAnimationRemaining < 0) {
+        moveAnimationRemaining = Math.max(moveAnimationRemaining - seconds, 0);
+        if (moveAnimationRemaining == 0) {
             moveAnimationRemaining = 0;
             moveDestination = null;
             
