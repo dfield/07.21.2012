@@ -23,6 +23,10 @@ socket.on('articleTarget', function(articleTarget) {
   changeArticleTarget(articleTarget);
 });
 
+socket.on('currentArticle', function(articleName) {
+  changeCurrentArticle(articleName);
+});
+
 socket.on('articles', function(articlesData) {
   var lowestBoundX = -28;
   var uppestBoundX = 18;
@@ -84,7 +88,12 @@ function changeArticleTarget(articleTarget) {
   $("#article-target").html(articleTarget);
 }
 
+function changeCurrentArticle(articleName) {
+  $("#current-article").html(articleName);
+}
+
 function setArticle(article) {
+  changeCurrentArticle(article.name);
   socket.emit("setArticle", article.id);
 }
 
