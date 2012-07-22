@@ -1,13 +1,12 @@
 var gl = GL.create();
 
 $(document).ready(function() {
-    var currentPage = new WikiPage("Potato", [0, 0]);
+    var currentPage = new WikiPage("Potato", [0, 0], true);
     var relatedPages = [
-        new WikiPage("Spud", [0, 0]),
-        new WikiPage("Plant", [10, 10]),
-        new WikiPage("Farm", [-10, 10]),
+        new WikiPage("Spud", [0, 0], false),
+        new WikiPage("Plant", [10, 10], false),
+        new WikiPage("Farm", [-10, 10], false),
     ];
-    currentPage.position = [0, 0, 0];
 
     var cubeMesh = GL.Mesh.cube();
     var flatShader = new GL.Shader('\
