@@ -22,7 +22,6 @@ io.configure(function () {
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
-    console.log("logging in");
     game.addClient(socket, opts);
     socket.emit('articles', game.getArticles());
     socket.emit('articleTarget', game.articleTarget.name);
@@ -32,8 +31,7 @@ io.sockets.on('connection', function (socket) {
     game.removeClient(socket);
   });
   
-  socket.on('disconnecting', function() {
-    console.log("DISCONNECTING");
+  socket.on('disconnect', function() {
     game.removeClient(socket);
   });
   

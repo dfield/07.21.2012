@@ -6,6 +6,8 @@ window.onclose = function() {
   socket.emit('disconnecting');
 };
 
+setInterval(function() { socket.emit('ping') }, 1000);
+
 socket.emit('getNode', { 'node_id': 'data' });
 
 socket.on('nodeData', function (data) {
