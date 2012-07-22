@@ -1,4 +1,6 @@
-function Player() { }
+function Player() {
+  this.currentArticleId = null;
+}
 
 Player.prototype = { };
 
