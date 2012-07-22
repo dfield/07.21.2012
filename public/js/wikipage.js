@@ -1,9 +1,13 @@
 function WikiPage(article, position, currentPage) {
     this.article = article;
     this.currentPage = currentPage;
+    var lowerTextBound = 15;
+    var upperTextBound = 21;
     var lowerBound = -50;
     var upperBound = -30;
-    var zCoord = (!!currentPage) ? 0 : lowerBound + (Math.random() * (upperBound - lowerBound));;
+    var rand = Math.random();
+    var zCoord = (!!currentPage) ? 0 : lowerBound + rand * (upperBound - lowerBound);
+    var fontSize = lowerTextBound + rand * (upperTextBound - lowerTextBound);;
 
     this.position = new GL.Vector(
         position[0],
@@ -18,6 +22,7 @@ function WikiPage(article, position, currentPage) {
         .attr("id", this.article.name)
         .addClass("page-title")
         .css("position", "absolute")
+        .css("font-size", fontSize + "px")
         .text(this.article.name);
     this.textElement = text;
 
@@ -62,6 +67,10 @@ function WikiPage(article, position, currentPage) {
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
             gl.enable(gl.DEPTH_TEST);
+            this.textElement.addClass("highlight");
+        }
+        else {
+            this.textElement.removeClass("highlight");
         }
 
         gl.pushMatrix();

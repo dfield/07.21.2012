@@ -23,7 +23,12 @@ body {
 	max-height: 40px;
 	line-height: 13px;
 	text-align: center;
+	opacity: .4;
 	@include telex-font;
+	&.highlight {
+		opacity: 1;
+		z-index: 3;
+	}
 }
 
 #fb-login {
