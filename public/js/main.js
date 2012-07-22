@@ -108,7 +108,7 @@ $(document).ready(function() {
         textureShader.draw(planeMesh);
         bgTexture.unbind(0);
         gl.popMatrix();
-        
+
         // related pages are further out
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
