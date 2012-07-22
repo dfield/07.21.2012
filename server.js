@@ -6,9 +6,24 @@ var express = require('express')
   , fs = require('fs')
   , PORT = process.env.PORT || 8000
   ;
-  
+
+var graph = {};
+var fileContents = fs.readFileSync("graphData.json",'utf8'); 
+graph = JSON.parse(fileContents);
+
 var Game = require('./game').Game;
 var game = new Game();
+game.graph = graph;
+
+// Configure redis.
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = require("redis").createClient(rtg.port, rtg.hostname);
+
+  redis.auth(rtg.auth.split(":")[1]);
+} else {
+  //var redis = require("redis").createClient();
+}
 
 // match app routes before serving static file of that name
 app.use(app.router);
@@ -23,7 +38,7 @@ io.configure(function () {
 io.sockets.on('connection', function (socket) {
   socket.on('login', function(opts) {
     game.addClient(socket, opts);
-    socket.emit('articles', game.getArticles());
+    socket.emit('articles', game.getArticles(socket));
     socket.emit('articleTarget', game.articleTarget.name);
   });
   
@@ -36,8 +51,8 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('setArticle', function(articleId) {
-    game.setArticle(socket, articleId);
-    socket.emit('articles', game.getArticles());
+    game.setArticle(socket.playerId, articleId);
+    socket.emit('articles', game.getArticles(socket));
   });
 
 });

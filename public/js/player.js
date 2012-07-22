@@ -3,7 +3,7 @@ if (typeof require != 'undefined') {
 }
 
 function Player() {
-  this.article = new Article("Tala's great adventure omg what a long article!!!", 1);
+  this.article = new Article("Tala's great adventure omg what a long article!!!", 1482587);
 }
 
 Player.prototype = { };
