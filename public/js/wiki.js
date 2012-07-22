@@ -81,7 +81,7 @@ function displayPlayers() {
 }
 
 function changeArticleTarget(articleTarget) {
-  $("#article_target").text("Target: " + articleTarget);
+  $("#article-target").html(articleTarget);
 }
 
 function setArticle(article) {

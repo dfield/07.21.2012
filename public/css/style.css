@@ -57,14 +57,44 @@ body {
 .article {
   color: white; }
 
-#article_target {
-  position: absolute;
-  color: white;
-  text-align: center;
-  font-size: 40px;
-  width: 100%;
-  top: 20px;
-  z-index: 3; }
+#target-wrapper {
+  position: fixed;
+  max-width: 500px;
+  min-width: 200px;
+  height: 113px;
+  bottom: 60px;
+  z-index: 4;
+  color: #CAF4FF;
+  text-shadow: 0px 0px 6px #09F;
+  left: -10px;
+  padding: 2px 3px 2px 17px;
+  background-color: rgba(14, 3, 29, 0.5);
+  border: 1px solid #794C7A;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px #C58DE4;
+  font-family: 'Telex', sans-serif;
+  font-variant: small-caps;
+  font-weight: bold; }
+  #target-wrapper .target-header {
+    width: 200px;
+    height: 14px;
+    margin-bottom: 2px;
+    color: #94C7CC;
+    font-size: 18px; }
+  #target-wrapper #current-article {
+    width: 500px;
+    height: 28px;
+    margin-left: 10px;
+    font-size: 25px;
+    color: #fff;
+    margin-bottom: 13px; }
+  #target-wrapper #article-target {
+    position: absolute;
+    color: white;
+    font-size: 36px;
+    width: 90%;
+    z-index: 3;
+    margin-left: 10px; }
 
 #players {
   display: none;
