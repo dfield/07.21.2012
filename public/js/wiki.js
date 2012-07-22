@@ -26,11 +26,17 @@ socket.on('diff', function(diff) {
 });
 
 socket.on('articles', function(articlesData) {
+  var lowerBound = -20;
+  var upperBound = 20;
+  
   relatedPages = [];
   for (articleId in articlesData) {
-    var article = new Article(articleId);
-    article.name = articlesData[articleId].name;
-    var wikiPage = new WikiPage(article, [10, 10], false);
+    var article = new Article(articlesData[articleId].name, articleId);
+    
+    var x = lowerBound + (Math.random() * (upperBound - lowerBound));
+    var y = lowerBound + (Math.random() * (upperBound - lowerBound));
+    
+    var wikiPage = new WikiPage(article, [x, y], false);
     relatedPages.push(wikiPage);
   }
 });
