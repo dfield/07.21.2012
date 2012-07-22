@@ -28,6 +28,7 @@ function initGlobals() {
 		varying vec2 coord;\
 		uniform sampler2D texture;\
 		uniform float alpha;\
+		uniform vec3 color;\
 		void main() {\
 			vec3 light = vec3(3,10,10);\
 			vec3 rimlight = vec3(8, -10, -10);\
@@ -37,9 +38,9 @@ function initGlobals() {
 			float dProd2 = max(0.0, dot(normal, rimlight));\
 			vec4 shadow = vec4(dProd, dProd, dProd, 1);\
 			vec4 rimLight = vec4(dProd2, dProd2, dProd2, 1);\
-			vec4 purple = vec4(1, .9, 1, 1);\
+			vec4 color4 = vec4(color, 1);\
 			vec4 blue = vec4(.8, .9, 1, 1);\
-                        vec4 color = texture2D(texture, coord * .5)*(shadow+rimLight*blue)*purple;\
+                        vec4 color = texture2D(texture, coord * .5)*(shadow+rimLight*blue)*color4;\
                         gl_FragColor = vec4(color.xyz * alpha, alpha);\
 		}\
 	');
@@ -57,7 +58,7 @@ function initGlobals() {
 			gl_FragColor = texture2D(texture, coord);\
 		}\
 	');
-    
+   
     window.flatShader = new GL.Shader('\
         void main() {\
             gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
@@ -69,6 +70,34 @@ function initGlobals() {
         }\
     ');
 
+    window.bridgeShader = new GL.Shader('\
+        varying vec2 coord;\
+        void main() {\
+            coord = gl_TexCoord.xy;\
+            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
+        }\
+        ', '\
+        uniform vec4 color;\
+        uniform float alpha;\
+        varying vec2 coord;\
+        void main() {\
+            float a = abs(coord.x - 0.5) * 2.0;\
+            float sideAlpha = 1.0 - a;\
+            float fadeStart = 0.0;\
+            float fadeEnd = 0.0;\
+            float lengthAlpha = 1.0;\
+            if (coord.y < fadeStart) {\
+                lengthAlpha = coord.y / fadeStart;\
+            } else if (coord.y < fadeEnd) {\
+                lengthAlpha = 1.0;\
+            } else {\
+                lengthAlpha = 1.0 - (coord.y - fadeEnd) / (1.0 - fadeEnd);\
+            }\
+            float cumulativeAlpha = alpha * sideAlpha * lengthAlpha;\
+            vec3 outColor = vec3(1, 1, 1);\
+            gl_FragColor = vec4(outColor * cumulativeAlpha, cumulativeAlpha);\
+        }\
+    ');
 
     /* MESHES */
     window.planeMesh = GL.Mesh.plane({

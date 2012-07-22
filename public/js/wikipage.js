@@ -6,8 +6,15 @@ function WikiPage(article, position, currentPage) {
     var lowerBound = -50;
     var upperBound = -30;
     var rand = Math.random();
+    var startSize = .7 + rand * .7;
+    this.size = startSize;
+
     var zCoord = (!!currentPage) ? 0 : lowerBound + rand * (upperBound - lowerBound);
     var fontSize = lowerTextBound + rand * (upperTextBound - lowerTextBound);;
+    var r = .6 + Math.random() * .4;
+    var g = .6 + Math.random() * .4;
+    var b = .6 + Math.random() * .4;
+    this.color = [r, g, b];
 
     this.position = new GL.Vector(
         position[0],
@@ -26,12 +33,15 @@ function WikiPage(article, position, currentPage) {
         .text(this.article.name);
     this.textElement = text;
 
-    var bridgeMesh = new GL.Mesh();
+    var bridgeMesh = new GL.Mesh({ coords: true });
     bridgeMesh.vertices = [
         [-0.5, -0.5, 0],
         [0.5, -0.5, 0],
         [this.position.x - 0.5, this.position.y - 0.5, this.position.z],
         [this.position.x + 0.5, this.position.y - 0.5, this.position.z]
+    ];
+    bridgeMesh.coords = [
+        [0, 0], [1, 0], [0, 1], [1, 1]
     ];
     bridgeMesh.triangles = [
         [0, 1, 2],
@@ -41,7 +51,6 @@ function WikiPage(article, position, currentPage) {
     
     var sizeAnimationDuration = 0.1;
     var sizeAnimationMaxSize = 1.2;
-    this.size = 1;
     this.hitSize = this.size + 0.5;
 
     this.alpha = 1;
@@ -55,7 +64,7 @@ function WikiPage(article, position, currentPage) {
             this.sizeAnimator.advanceToZero(seconds);
         }
 
-        this.size = 1 + this.sizeAnimator.get();
+        this.size = startSize + this.sizeAnimator.get();
         this.hitSize = this.size + 1 ;
     }
 
@@ -64,8 +73,9 @@ function WikiPage(article, position, currentPage) {
             gl.disable(gl.DEPTH_TEST);
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-            flatShader.uniforms({
-                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3]
+            bridgeShader.uniforms({
+                color: [0.3, 0.3, 0.3, this.sizeAnimator.get() * 0.3],
+                alpha: 0.5 + 2 * this.sizeAnimator.get(),
             }).draw(bridgeMesh);
             gl.disable(gl.BLEND);
             gl.enable(gl.DEPTH_TEST);
@@ -78,7 +88,6 @@ function WikiPage(article, position, currentPage) {
         gl.pushMatrix();
 
         gl.translate(this.position.x, this.position.y, this.position.z);
-        gl.scale(this.size, this.size, this.size);
 
         if (!this.currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
@@ -88,8 +97,11 @@ function WikiPage(article, position, currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
             this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);
             this.textElement.css("bottom", screenPosition.y - 200);
+            this.size = 1;
         }
-        
+
+        gl.scale(this.size, this.size, this.size);
+
         gl.rotate(30, 0, 0, 1);
         gl.rotate(90, 0, 1, 0);
 
@@ -97,9 +109,11 @@ function WikiPage(article, position, currentPage) {
         gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     
         planetTexture1.bind(0);
+
         shadyTextureShader.uniforms({
             alpha: this.alpha,
             texture: 0,
+            color: this.color
         });
         shadyTextureShader.draw(sphereMesh);
         planetTexture1.unbind(0);        
