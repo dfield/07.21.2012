@@ -1,3 +1,7 @@
+@mixin bg-gradient($angle, $firstStop: 62%, $secondStop: 64%) {
+background: -webkit-linear-gradient($angle, rgba(14,3,29,0.5) 0%,rgba(66,41,65,0.5) $firstStop,rgba(121,76,122,0.55) $secondStop, rgba(14,3,29,0.5) 100%); /* Chrome10+,Safari5.1+ */
+}
+
 @mixin telex-font {
 	font-family: 'Telex', sans-serif;
 	font-variant: small-caps;
@@ -32,6 +36,7 @@ body {
 	top: 140px;
 	@include glowy;
 	@include telex-font;
+	@include bg-gradient(-45deg);
 
 	color: #E8FAFF;
 	text-shadow: 0px 0px 16px #09F;
@@ -107,6 +112,7 @@ body {
 	left: -10px;
 	padding: 2px 3px 2px 17px;
 	@include glowy;
+	@include bg-gradient(115deg, 30%, 34%);
 
 	@include telex-font;
 

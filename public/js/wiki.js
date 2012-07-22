@@ -110,5 +110,6 @@ function login(loginData) {
 function logout() {
   socket.emit('logout');
   $("#players").fadeOut();
+  $("#players-header").fadeOut();
   $("#target-wrapper").fadeOut();
 }
