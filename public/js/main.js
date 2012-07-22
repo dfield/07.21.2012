@@ -16,6 +16,8 @@ function useNewPages() {
     $.each(relatedPages, function(i, elt) {
         $("body").append(elt.textElement);
     });
+
+    $(".page-title").ellipsis();
 }
 
 $(document).ready(function() {

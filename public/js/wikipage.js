@@ -1,7 +1,10 @@
 function WikiPage(article, position, currentPage) {
     this.article = article;
     this.currentPage = currentPage;
-    var zCoord = (!!currentPage) ? 0 : -40;
+    var lowerBound = -50;
+    var upperBound = -30;
+    var zCoord = (!!currentPage) ? 0 : lowerBound + (Math.random() * (upperBound - lowerBound));;
+
     this.position = new GL.Vector(
         position[0],
         position[1],

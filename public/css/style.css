@@ -12,6 +12,7 @@ body {
   color: #CAF4FF;
   text-shadow: 0px 0px 6px #09F;
   width: 200px;
+  max-height: 40px;
   line-height: 13px;
   text-align: center;
   font-family: 'Telex', sans-serif;
