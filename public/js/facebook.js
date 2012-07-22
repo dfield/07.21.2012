@@ -2,6 +2,7 @@ var uid = 0;
 var name = "Anonymous";
 
 function facebookLogin() {
+  console.log("Trying to log in");
   FB.login(function(response) {
     handleResponse(response);
   }, {scope:'email'});
@@ -22,6 +23,7 @@ function showLoginButton() {
 }
 
 function handleResponse(response) {
+  console.log(response);
   if (response.authResponse) {
     $("#fb-login").unbind("click");
     $("#fb-login").text("Logout")
