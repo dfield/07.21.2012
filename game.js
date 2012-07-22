@@ -51,7 +51,7 @@ function Game() {
     3: new Article("Sketchalicious definition make the girls go loco"),
     4: new Article("HOLY CRAP IT'S A PLANET"),
     5: new Article("I think it's okay if the coffee is cold"),
-    6: new Article("Hey I just met you"),
+    6: new Article("Hey I just met you hey I just met you hey I just met you again again"),
     7: new Article("And this is crazy"),
     8: new Article("But here's my number"),
     8: new Article("So call me maybe!!!!!!"),

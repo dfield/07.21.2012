@@ -12,11 +12,16 @@ body {
   color: #CAF4FF;
   text-shadow: 0px 0px 6px #09F;
   width: 200px;
+  max-height: 40px;
   line-height: 13px;
   text-align: center;
+  opacity: .4;
   font-family: 'Telex', sans-serif;
   font-variant: small-caps;
   font-weight: bold; }
+  .page-title.highlight {
+    opacity: 1;
+    z-index: 3; }
 
 #fb-login {
   position: relative;

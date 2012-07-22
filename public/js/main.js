@@ -3,6 +3,10 @@ var nextRelatedPages = [];
 var relatedPages = [];
 var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], true);
 
+var moveDuration = 0.5;
+var textFadeDuration = moveDuration / 2;
+var planetFadeInDuration = moveDuration / 2;
+
 function useNewPages() {
     if (relatedPages.length > 0) {
         $.each(relatedPages, function(i, elt) {
@@ -14,8 +18,12 @@ function useNewPages() {
     nextRelatedPages = [];
     
     $.each(relatedPages, function(i, elt) {
+        elt.alpha = 0;
+        elt.textElement.fadeIn(textFadeDuration * 1000);
         $("body").append(elt.textElement);
     });
+
+    $(".page-title").ellipsis();
 }
 
 $(document).ready(function() {
@@ -31,8 +39,6 @@ $(document).ready(function() {
     var cameraOffset = new GL.Vector(0, 1.5, 5);
     var moveAnimationRemaining = 0;
     var moveDestination = null;
-    var moveDuration = 0.5;
-    var textFadeDuration = moveDuration / 2;
 
     document.onmousedown = function(e) {
       var tracer = new GL.Raytracer();
@@ -71,6 +77,8 @@ $(document).ready(function() {
             }
 
             page.update(seconds);
+
+            page.alpha = Math.min(1, page.alpha + seconds / planetFadeInDuration);
         }
         
         moveAnimationRemaining = Math.max(moveAnimationRemaining - seconds, 0);
