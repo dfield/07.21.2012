@@ -20,15 +20,15 @@ $(document).ready(function() {
     });
 
     var flatShader = new GL.Shader('\
-      void main() {\
-        gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
-      }\
-    ', '\
-      uniform vec4 color;\
-      void main() {\
-        gl_FragColor = color;\
-      }\
-    ');
+        void main() {\
+            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\
+        }\
+        ', '\
+        uniform vec3 color;\
+        void main() {\
+            gl_FragColor = vec4(color, 1);\
+        }\
+        ');
 
     var shader = new GL.Shader('\
         varying vec3 normal;\
@@ -74,6 +74,15 @@ $(document).ready(function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.loadIdentity();
         gl.translate(0, -1.5, -5);
+
+        gl.pushMatrix();
+        gl.scale(50, 50, 1);
+        gl.translate(0, 0, -60);
+        flatShader.uniforms({
+            color: [1, 1, 1]
+        })
+        flatShader.draw(planeMesh);
+        gl.popMatrix();
 
         // current page is at the origin
         shader.uniforms({

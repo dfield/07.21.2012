@@ -17,7 +17,6 @@ function WikiPage(name) {
     context.strokeText(name, leftOffset, topOffset);
     context.fillText(name, leftOffset, topOffset);
     context.restore();
-    
     this.nameTexture = GL.Texture.fromImage(canvas, {
         minFilter: gl.LINEAR_MIPMAP_NEAREST,
     });
