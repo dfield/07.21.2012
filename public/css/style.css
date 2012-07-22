@@ -5,5 +5,17 @@
   position: relative;
   z-index: 2; }
 
+#opponents {
+  position: absolute;
+  width: 200px;
+  height: 500px;
+  right: 20px;
+  top: 20px;
+  background-color: gray;
+  z-index: 2; }
+
+.template {
+  display: none; }
+
 canvas {
   z-index: 1; }
