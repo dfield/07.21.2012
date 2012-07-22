@@ -23,13 +23,13 @@ $(document).ready(function() {
         mousePosition = { x: e.x, y: e.y };
     }
 
-    gl.onmouseup = function(e) {
+    document.onmousedown = function(e) {
       var tracer = new GL.Raytracer();
       var ray = tracer.getRayForPixel(e.x, e.y);
       
       for (var i = 0; i < relatedPages.length; i++) {
           var page = relatedPages[i];
-          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 1);
+          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 3);
           if (result) {
             setArticle(page.article);
           }

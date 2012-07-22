@@ -33,6 +33,7 @@ function displayPlayers() {
 }
 
 function setArticle(article) {
+  console.log("here");
   socket.emit("setArticle", article.id);
 }
 

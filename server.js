@@ -28,6 +28,7 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('setArticle', function(articleId) {
+    console.log("Setting article");
     game.setArticle(socket, articleId);
   });
   
