@@ -28,12 +28,17 @@ function initShaders() {
 		varying vec2 coord;\
 		uniform sampler2D texture;\
 		void main() {\
-			vec3 light = vec3(3,5,6);\
+			vec3 light = vec3(3,10,10);\
+			vec3 rimlight = vec3(8, -10, -10);\
+			rimlight = normalize(rimlight);\
 			light = normalize(light);\
 			float dProd = max(0.0, dot(normal, light));\
+			float dProd2 = max(0.0, dot(normal, rimlight));\
 			vec4 shadow = vec4(dProd, dProd, dProd, 1);\
+			vec4 rimLight = vec4(dProd2, dProd2, dProd2, 1);\
 			vec4 purple = vec4(1, .9, 1, 1);\
-			gl_FragColor =  texture2D(texture, coord * .5)*shadow*purple;\
+			vec4 blue = vec4(.8, .9, 1, 1);\
+			gl_FragColor =  texture2D(texture, coord * .5)*(shadow+rimLight*blue)*purple;\
 		}\
 	');
 
