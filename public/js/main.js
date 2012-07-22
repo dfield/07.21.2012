@@ -20,7 +20,7 @@ function useNewPages() {
     $.each(relatedPages, function(i, elt) {
         elt.alpha = 0;
 
-        elt.textElement.css("opacity", 0);
+        elt.textElement.css("opacity", "0.05");
         elt.textElement.animate({
             opacity: 0.4,
         }, textFadeDuration * 1000, function() {
