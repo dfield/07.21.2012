@@ -118,10 +118,10 @@ Game.prototype.setArticle = function(socket, articleId) {
 Game.prototype.getArticles = function() {
   var articlesData = {}; 
   for (articleId in this.articles) {
-    var articleData = {"id": articleId, "name": this.articles.name};
+    var articleData = {"id": articleId, "name": this.articles[articleId].name};
     articlesData[articleId] = articleData;
   }
-  return articleData;
+  return articlesData;
 }
 
 Game.prototype.newArticleTarget = function() {
