@@ -61,7 +61,7 @@ $(document).ready(function() {
                 if (result) {
                     setArticle(page.article);
                     moveAnimationRemaining = moveDuration;
-                    moveDestination = page.position;
+                    moveDestination = page;
                     page.highlighted = false;
                     
                     $(".page-title").fadeOut(textFadeDuration * 1000);
@@ -94,14 +94,18 @@ $(document).ready(function() {
         }
         
         moveAnimationRemaining = Math.max(moveAnimationRemaining - seconds, 0);
-        if (moveAnimationRemaining == 0) {
+        if (moveDestination != null && moveAnimationRemaining == 0) {
             moveAnimationRemaining = 0;
+            currentPage = moveDestination;
+            currentPage.position.x = 0;
+            currentPage.position.y = 0;
+            currentPage.position.z = 0;
             moveDestination = null;
             
             if (nextRelatedPages.length > 0) {
                 useNewPages();
             } else {
-                // ???
+                console.log("OH NOES");
             }
         }
     };
@@ -122,7 +126,7 @@ $(document).ready(function() {
         var cameraPosition;
         if (moveAnimationRemaining > 0) {
             cameraPosition = GL.Vector.lerp(
-                moveDestination,
+                moveDestination.position,
                 currentPage.position,
                 moveAnimationRemaining / moveDuration
             ); 
