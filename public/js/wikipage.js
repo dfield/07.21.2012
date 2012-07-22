@@ -11,15 +11,13 @@ function WikiPage(article, position, currentPage) {
     this.highlighted = false;
     this.sizeAnimationTime = 0;
   
-    if (!this.currentPage) {
-        var text = $("<span></span>")
-            .attr("id", this.article.name)
-            .addClass("page-title")
-            .css("position", "absolute")
-            .text(this.article.name);
-        $("body").append(text);
-        this.textElement = text;
-    }
+    var text = $("<span></span>")
+        .attr("id", this.article.name)
+        .addClass("page-title")
+        .css("position", "absolute")
+        .text(this.article.name);
+    $("body").append(text);
+    this.textElement = text;
 
     var planeMesh = GL.Mesh.plane({
         coords: true,
@@ -85,6 +83,10 @@ function WikiPage(article, position, currentPage) {
             var screenPosition = gl.project(0, 1.5, 0);
             this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);
             this.textElement.css("bottom", screenPosition.y);
+        } else {
+            var screenPosition = gl.project(0, 1.5, 0);
+            this.textElement.css("left", screenPosition.x - this.textElement.width() / 2);
+            this.textElement.css("bottom", screenPosition.y - 200);
         }
         
         gl.rotate(90, 0, 1, 0);

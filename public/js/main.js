@@ -1,6 +1,6 @@
 var gl = GL.create();
 var relatedPages = [];
-var currentPage = new WikiPage("Potato", [0, 0], true);
+var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], true);
 
 $(document).ready(function() {
 
