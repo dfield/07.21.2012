@@ -29,12 +29,14 @@ $(document).ready(function() {
         
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
-            var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 1);
+            var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, 2);
             if (result) {
                 page.highlighted = true;
             } else {
                 page.highlighted = false;
             }
+
+            page.update(seconds);
         }
     };
 
