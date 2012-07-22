@@ -18,16 +18,6 @@ function WikiPage(article, position, currentPage) {
         .text(this.article.name);
     this.textElement = text;
 
-    var planeMesh = GL.Mesh.plane({
-        coords: true,
-    });
-    
-    var sphereMesh = GL.Mesh.sphere({
-        detail: 10,
-        normals: true,
-        coords: true
-    });
-
     var bridgeMesh = new GL.Mesh();
     bridgeMesh.vertices = [
         [-0.5, -0.5, 0],
@@ -40,10 +30,6 @@ function WikiPage(article, position, currentPage) {
         [2, 1, 3]
     ];
     bridgeMesh.compile();
-
-    var planetTexture1 = GL.Texture.fromURL("/images/planet-texture3.jpg", {
-        minFilter: gl.LINEAR_MIPMAP_NEAREST
-    });
     
     var sizeAnimationDuration = 0.1;
     var sizeAnimationMaxSize = 1.2;

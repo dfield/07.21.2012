@@ -6,7 +6,6 @@ var currentPage = new WikiPage(new Article("Waiting for an article"), [0, 0], tr
 function useNewPages() {
     if (relatedPages.length > 0) {
         $.each(relatedPages, function(i, elt) {
-            console.log(elt);
             elt.textElement.remove();
         });
     }
@@ -21,14 +20,7 @@ function useNewPages() {
 
 $(document).ready(function() {
     /* WEBGL stuff */
-    initShaders();
-
-    var planeMesh = GL.Mesh.plane({
-        coords: true,
-    });
-
-    var cubeMesh = GL.Mesh.cube();
-    var bgTexture = GL.Texture.fromURL("/images/starfield.jpg");
+    initGlobals();
 
     var mousePosition = { x: 0, y: 0 };
     
@@ -81,11 +73,8 @@ $(document).ready(function() {
             page.update(seconds);
         }
         
-        if (moveAnimationRemaining > 0) {
-            moveAnimationRemaining -= seconds;
-        }
-
-        if (moveAnimationRemaining < 0) {
+        moveAnimationRemaining = Math.max(moveAnimationRemaining - seconds, 0);
+        if (moveAnimationRemaining == 0) {
             moveAnimationRemaining = 0;
             moveDestination = null;
             
@@ -137,7 +126,7 @@ $(document).ready(function() {
         textureShader.draw(planeMesh);
         bgTexture.unbind(0);
         gl.popMatrix();
-        
+
         // related pages are further out
         for (var i = 0; i < relatedPages.length; i++) {
             var page = relatedPages[i];
