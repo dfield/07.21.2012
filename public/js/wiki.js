@@ -45,7 +45,7 @@ socket.on('articles', function(articlesData) {
     var wikiPage = new WikiPage(article, [x, y], false);
     nextRelatedPages.push(wikiPage);
   }
-
+    
   // on the first receieve, the related pages array is empty
   if (relatedPages.length == 0) {
     useNewPages();
