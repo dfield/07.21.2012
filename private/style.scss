@@ -4,6 +4,13 @@
 	font-weight: bold;
 }
 
+@mixin glowy {
+	background-color: rgba(14, 3, 29, 0.5);
+	border: 1px solid #794C7A;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px #C58DE4;
+}
+
 body {
   font-family: Apex, "Helvetica Neue", "HelveticaNeue", "Lucida Grande",  Helvetica, Arial, sans-serif;
   font-size: 125%;
@@ -11,8 +18,20 @@ body {
   -webkit-user-select:  none;
 }
 
-.test {
-	font-size: 30px;
+#splash {
+	width: 550px;
+	z-index: 2;
+	height: 220px;
+	position: relative;
+	margin: auto;
+	top: 140px;
+	@include glowy;
+	@include telex-font;
+
+	color: #E8FAFF;
+	text-shadow: 0px 0px 16px #09F;
+	font-size: 100px;
+	text-align: center;
 }
 
 .page-title {
@@ -42,7 +61,7 @@ body {
 	border-bottom: 1px solid #1D1075;
 	border-right: 1px solid #1D1075;
 	margin: 0px;
-	position: fixed;
+	position: relative;
 	padding: 0px 6px 0px 26px;
 	background-image: url("/images/facebook-icon.png");
 	background-size: 22px;
@@ -52,21 +71,24 @@ body {
 	line-height: 22px;
 	cursor: pointer;
 	-webkit-transition: background-color 0.3s;
-	top: 50%;
-  left: 50%;
-	
+  	margin: auto;
+	width: 153px;
+	top: 65px;
 	&:hover {
 		background-color: rgba(76, 114, 172, 0.9);
 		text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.6);
 	}
 	&.logout {
-	  left: 0px;
-	  top: 0px;
+		position: fixed;
+		left: 0px;
+		top: 0px;
 		padding: 0px 11px 0px 33px;
+		width: inherit;
 	}
 }
 
 #target-wrapper {
+	display: none;
 	position: fixed;
 	max-width: 500px;
 	min-width: 200px;
@@ -78,10 +100,7 @@ body {
 
 	left: -10px;
 	padding: 2px 3px 2px 17px;
-	background-color: rgba(14, 3, 29, 0.5);
-	border: 1px solid #794C7A;
-	border-radius: 10px;
-	box-shadow: 0px 0px 20px #C58DE4;
+	@include glowy;
 
 	@include telex-font;
 
@@ -119,10 +138,7 @@ body {
 	height: 500px;
 	right: 20px;
 	top: 20px;
-	background-color: rgba(14, 3, 29, .5);
-	border: 1px solid #794C7A;
-	border-radius: 10px;
-	box-shadow: 0px 0px 20px #C58DE4;
+	@include glowy;
 	z-index: 2;
 	overflow-y: scroll;
 	.player {

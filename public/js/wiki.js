@@ -93,9 +93,12 @@ function login(loginData) {
   socket.emit('login', loginData)
   loggedIn = true;
   $("#fb-login").addClass("logout");
+  $("#target-wrapper").fadeIn();
+  $("#splash").fadeOut();
 }
 
 function logout() {
   socket.emit('logout');
   $("#players").fadeOut();
+  $("#target-wrapper").fadeOut();
 }
