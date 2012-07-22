@@ -11,13 +11,14 @@
   <button id="fb-login">Login with Facebook</button>
   <div id="players"></div>
   <div class="player template">
-    <div class="name"></div>
     <div class="image"><img></img></div>
+    <div class="name"></div>
   </div>
   
   <!-- defer loads scripts in order + async. Does not block DOM rendering -->
   <script src="/js/lib/socket.io.js"></script>
   <script src="/js/lib/jquery.js" defer></script>
+  <script src="/js/world.js" defer></script>
   <script src="/js/wiki.js" defer></script>
   <script src="http://evanw.github.com/lightgl.js/lightgl.js" defer></script>
   <script src="/js/util.js" defer></script>

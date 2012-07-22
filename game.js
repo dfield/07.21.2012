@@ -1,5 +1,6 @@
 var Player = require('./public/js/player').Player;
 var Article = require('./public/js/article').Article;
+var World = require('./public/js/world').World;
 
 /**
   * Monitor class takes care of diffs in the world.
@@ -40,6 +41,7 @@ Monitor.prototype.diff = function() {
   * Game model.
   */
 function Game() {
+  this.world = new World();
   this.clients = {};
   this.articles = {1: new Article("Tala Huhe - Man of the Year"), 2: new Article("Devin Finzer - One cool dude")};
   this.players = {};
@@ -111,6 +113,10 @@ Game.prototype.setArticle = function(socket, articleId) {
   var player = this.players[socket.playerId];
   player.article = this.articles[articleId];
   this.update();
+}
+
+Game.prototype.newArticleTarget = function() {
+  
 }
 
 exports.Game = Game;
