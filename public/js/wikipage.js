@@ -16,7 +16,7 @@ function WikiPage(article, position, currentPage) {
     );
 
     this.highlighted = false;
-    this.sizeAnimator = new Oscillator(10, 0.25);
+    this.sizeAnimator = new Oscillator(10, 0.07);
   
     var text = $("<span></span>")
         .attr("id", this.article.name)
