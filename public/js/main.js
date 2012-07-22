@@ -19,7 +19,14 @@ function useNewPages() {
     
     $.each(relatedPages, function(i, elt) {
         elt.alpha = 0;
-        elt.textElement.fadeIn(textFadeDuration * 1000);
+
+        elt.textElement.css("opacity", "0.05");
+        elt.textElement.animate({
+            opacity: 0.4,
+        }, textFadeDuration * 1000, function() {
+            // this is so that opacity is controlled via css
+            $(this).css("opacity", "");
+        });
         $("body").append(elt.textElement);
     });
 
@@ -41,21 +48,23 @@ $(document).ready(function() {
     var moveDestination = null;
 
     document.onmousedown = function(e) {
-      var tracer = new GL.Raytracer();
-      var ray = tracer.getRayForPixel(e.x, e.y);
-      
-      for (var i = 0; i < relatedPages.length; i++) {
-          var page = relatedPages[i];
-          var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
-          if (result) {
-              setArticle(page.article);
-              moveAnimationRemaining = moveDuration;
-              moveDestination = page.position;
-              page.highlighted = false;
-
-              $(".page-title").fadeOut(textFadeDuration * 1000);
-          }
-      }
+        if (moveAnimationRemaining == 0) {
+            var tracer = new GL.Raytracer();
+            var ray = tracer.getRayForPixel(e.x, e.y);
+            
+            for (var i = 0; i < relatedPages.length; i++) {
+                var page = relatedPages[i];
+                var result = GL.Raytracer.hitTestSphere(tracer.eye, ray, page.position, page.hitSize);
+                if (result) {
+                    setArticle(page.article);
+                    moveAnimationRemaining = moveDuration;
+                    moveDestination = page.position;
+                    page.highlighted = false;
+                    
+                    $(".page-title").fadeOut(textFadeDuration * 1000);
+                }
+            }
+        }
     }
 
     gl.onupdate = function(seconds) {
@@ -91,8 +100,6 @@ $(document).ready(function() {
             } else {
                 // ???
             }
-
-            $(".page-title").fadeIn(textFadeDuration * 1000);
         }
     };
 
