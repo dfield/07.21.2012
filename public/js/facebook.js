@@ -1,16 +1,23 @@
 var uid = 0;
 var name = "Anonymous";
 
-function facebookLogin(callback) {
+function facebookLogin() {
   FB.login(function(response) {
-    if (response.authResponse) {
-      uid = response.authResponse.userID;
-      FB.api("/me", function(data) {
-        loginData = {"name": data.first_name, "facebookId": data.id};
-        callback(loginData);
-      });
-    }
+    handleResponse(response);
   }, {scope:'email'});
+}
+
+function handleResponse(response) {
+  if (response.authResponse) {
+    $("#fb-login").hide();
+    uid = response.authResponse.userID;
+    FB.api("/me", function(data) {
+      loginData = {"name": data.first_name, "facebookId": data.id};
+      login(loginData);
+    });
+  } else {
+    $("#fb-login").show();
+  }
 }
 
 window.fbAsyncInit = function() {
@@ -27,15 +34,9 @@ window.fbAsyncInit = function() {
 	    xfbml: true,
 	    oauth: true });
 
-  function updateButton(response) {
-    if (response.authResponse) {
-      //$("#fb-login").hide();
-    }
-  }
-
   // run once with current status and whenever the status changes
-  FB.getLoginStatus(updateButton);
-  FB.Event.subscribe('auth.statusChange', updateButton);	
+  FB.getLoginStatus(handleResponse);
+  FB.Event.subscribe('auth.statusChange', handleResponse);	
 };
 	
 (function() {
@@ -47,6 +48,6 @@ window.fbAsyncInit = function() {
 
 $(document).ready(function() {
   $("#fb-login").click(function() {
-    facebookLogin(login);
+    facebookLogin();
   });
 });
